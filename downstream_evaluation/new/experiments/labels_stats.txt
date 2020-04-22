@@ -1,0 +1,8 @@
+print(new_dataset.ec.value_counts())
+Transferases       5232
+Hydrolases         4099
+Oxidoreductases    2234
+Ligases            1124
+Lyases             1014
+Isomerases          731
+Name: ec, dtype: int64

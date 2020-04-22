@@ -1,0 +1,8 @@
+TargetP protvec OOV split
+=== SeqVecNet drop 0.25, lr=0.0003 - protvec update ===
+OOV 0%
+OOV 10%
+OOV 30%
+OOV 50%
+OOV 70%
+OOV 100%

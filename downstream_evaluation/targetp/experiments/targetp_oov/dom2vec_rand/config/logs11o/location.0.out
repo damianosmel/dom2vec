@@ -1,0 +1,8 @@
+TargetP dom2vec OOV split
+=== CNN 200x1_2 >FC(128x128) >FC(128xPrediction), drop 0.7, lr=0.0005 - dom2vec update ===
+OOV 0%
+OOV 10%
+OOV 30%
+OOV 50%
+OOV 70%
+OOV 100%

@@ -1,0 +1,344 @@
+/home/damian/anaconda3/envs/gensim/bin/python /home/damian/Documents/L3S/projects/dom2vec/code/extrinsic_eval_run.py
+=== ~ ===
+2.1) data set -> shuffled data set.
+Loading csv(s) -> data set.
+Using columns ['uniprot_id', 'cellular_location', 'seq', 'interpro_domains']
+Current df shape: (2738, 4)
+Data set shape: (2738, 4)
+Cleaning rows of csv(s) from no Interpro domains.
+Using columns ['uniprot_id', 'cellular_location', 'seq', 'interpro_domains']
+Removing duplicate instances joining x:interpro_domains and y:None columns
+Data set shape: (2418, 4)
+Removing duplicate instances joining x:seq and y:None columns
+Data set shape: (2418, 4)
+Count proteins per domain type:
+Protein instances with ONLY unknown domains: 1.0339123242349049% 
+Protein instances with ONLY gap domains: 0.2894954507857734%
+Protein instances with ONLY gap and unknown domains: 0.0%
+Protein instances with ONLY Interpro domains: 98.67659222497932%
+Removing protein instances with only full length unknown or only GAP domains
+Starting data set shape: (2418, 4)
+/home/damian/Documents/L3S/projects/dom2vec/code/PrepareDataSet.py:475: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  self.dataset.drop(self.dataset[one_uniq_domain & gap_domain].index, inplace=True)
+Removed instances data frame shape: (32, 4)
+Final data set data frame shape: (2386, 4)
+Shuffling data set..
+Saving dataset -> csv.
+=====
+3.1) split train/test stratified on label
+Performing train/test split stratified for cellular_location, test size: 0.3.
+Writing: 
+dataset_train: (1670, 4)
+dataset_test: (716, 4)
+---
+=====
+3.2) check domains distribution in train and test
+Plot common and OOV domains occurrence histograms in test set
+=== Stats ===
+num of train unique domains: 2291
+num of test unique domains: 909
+num of common unique domains: 1121
+=== === ===
+Plot OOV percentage per protein in test set
+=====
+3.3) create inner 3 fold cross validation sets
+Splitting training set with inner 3-fold stratified on cellular_location.
+Writing fold 1
+train data: (1113, 4)
+validation data: (557, 4)
+Writing fold 2
+train data: (1113, 4)
+validation data: (557, 4)
+Writing fold 3
+train data: (1114, 4)
+validation data: (556, 4)
+---
+=====
+3.4) subsample train set
+Subseting training set in 20 realizations for each percentage in [0.01, 0.02, 0.05, 0.1, 0.2, 0.5]
+---
+0 instance of percentage 0.01
+subset of train: (17, 4)
+1 instance of percentage 0.01
+subset of train: (17, 4)
+2 instance of percentage 0.01
+subset of train: (17, 4)
+3 instance of percentage 0.01
+subset of train: (17, 4)
+4 instance of percentage 0.01
+subset of train: (17, 4)
+5 instance of percentage 0.01
+subset of train: (17, 4)
+6 instance of percentage 0.01
+subset of train: (17, 4)
+7 instance of percentage 0.01
+subset of train: (17, 4)
+8 instance of percentage 0.01
+subset of train: (17, 4)
+9 instance of percentage 0.01
+subset of train: (17, 4)
+10 instance of percentage 0.01
+subset of train: (17, 4)
+11 instance of percentage 0.01
+subset of train: (17, 4)
+12 instance of percentage 0.01
+subset of train: (17, 4)
+13 instance of percentage 0.01
+subset of train: (17, 4)
+14 instance of percentage 0.01
+subset of train: (17, 4)
+15 instance of percentage 0.01
+subset of train: (17, 4)
+16 instance of percentage 0.01
+subset of train: (17, 4)
+17 instance of percentage 0.01
+subset of train: (17, 4)
+18 instance of percentage 0.01
+subset of train: (17, 4)
+19 instance of percentage 0.01
+subset of train: (17, 4)
+---
+0 instance of percentage 0.02
+subset of train: (33, 4)
+1 instance of percentage 0.02
+subset of train: (33, 4)
+2 instance of percentage 0.02
+subset of train: (33, 4)
+3 instance of percentage 0.02
+subset of train: (33, 4)
+4 instance of percentage 0.02
+subset of train: (33, 4)
+5 instance of percentage 0.02
+subset of train: (33, 4)
+6 instance of percentage 0.02
+subset of train: (33, 4)
+7 instance of percentage 0.02
+subset of train: (33, 4)
+8 instance of percentage 0.02
+subset of train: (33, 4)
+9 instance of percentage 0.02
+subset of train: (33, 4)
+10 instance of percentage 0.02
+subset of train: (33, 4)
+11 instance of percentage 0.02
+subset of train: (33, 4)
+12 instance of percentage 0.02
+subset of train: (33, 4)
+13 instance of percentage 0.02
+subset of train: (33, 4)
+14 instance of percentage 0.02
+subset of train: (33, 4)
+15 instance of percentage 0.02
+subset of train: (33, 4)
+16 instance of percentage 0.02
+subset of train: (33, 4)
+17 instance of percentage 0.02
+subset of train: (33, 4)
+18 instance of percentage 0.02
+subset of train: (33, 4)
+19 instance of percentage 0.02
+subset of train: (33, 4)
+---
+0 instance of percentage 0.05
+subset of train: (84, 4)
+1 instance of percentage 0.05
+subset of train: (84, 4)
+2 instance of percentage 0.05
+subset of train: (84, 4)
+3 instance of percentage 0.05
+subset of train: (84, 4)
+4 instance of percentage 0.05
+subset of train: (84, 4)
+5 instance of percentage 0.05
+subset of train: (84, 4)
+6 instance of percentage 0.05
+subset of train: (84, 4)
+7 instance of percentage 0.05
+subset of train: (84, 4)
+8 instance of percentage 0.05
+subset of train: (84, 4)
+9 instance of percentage 0.05
+subset of train: (84, 4)
+10 instance of percentage 0.05
+subset of train: (84, 4)
+11 instance of percentage 0.05
+subset of train: (84, 4)
+12 instance of percentage 0.05
+subset of train: (84, 4)
+13 instance of percentage 0.05
+subset of train: (84, 4)
+14 instance of percentage 0.05
+subset of train: (84, 4)
+15 instance of percentage 0.05
+subset of train: (84, 4)
+16 instance of percentage 0.05
+subset of train: (84, 4)
+17 instance of percentage 0.05
+subset of train: (84, 4)
+18 instance of percentage 0.05
+subset of train: (84, 4)
+19 instance of percentage 0.05
+subset of train: (84, 4)
+---
+0 instance of percentage 0.1
+subset of train: (167, 4)
+1 instance of percentage 0.1
+subset of train: (167, 4)
+2 instance of percentage 0.1
+subset of train: (167, 4)
+3 instance of percentage 0.1
+subset of train: (167, 4)
+4 instance of percentage 0.1
+subset of train: (167, 4)
+5 instance of percentage 0.1
+subset of train: (167, 4)
+6 instance of percentage 0.1
+subset of train: (167, 4)
+7 instance of percentage 0.1
+subset of train: (167, 4)
+8 instance of percentage 0.1
+subset of train: (167, 4)
+9 instance of percentage 0.1
+subset of train: (167, 4)
+10 instance of percentage 0.1
+subset of train: (167, 4)
+11 instance of percentage 0.1
+subset of train: (167, 4)
+12 instance of percentage 0.1
+subset of train: (167, 4)
+13 instance of percentage 0.1
+subset of train: (167, 4)
+14 instance of percentage 0.1
+subset of train: (167, 4)
+15 instance of percentage 0.1
+subset of train: (167, 4)
+16 instance of percentage 0.1
+subset of train: (167, 4)
+17 instance of percentage 0.1
+subset of train: (167, 4)
+18 instance of percentage 0.1
+subset of train: (167, 4)
+19 instance of percentage 0.1
+subset of train: (167, 4)
+---
+0 instance of percentage 0.2
+subset of train: (334, 4)
+1 instance of percentage 0.2
+subset of train: (334, 4)
+2 instance of percentage 0.2
+subset of train: (334, 4)
+3 instance of percentage 0.2
+subset of train: (334, 4)
+4 instance of percentage 0.2
+subset of train: (334, 4)
+5 instance of percentage 0.2
+subset of train: (334, 4)
+6 instance of percentage 0.2
+subset of train: (334, 4)
+7 instance of percentage 0.2
+subset of train: (334, 4)
+8 instance of percentage 0.2
+subset of train: (334, 4)
+9 instance of percentage 0.2
+subset of train: (334, 4)
+10 instance of percentage 0.2
+subset of train: (334, 4)
+11 instance of percentage 0.2
+subset of train: (334, 4)
+12 instance of percentage 0.2
+subset of train: (334, 4)
+13 instance of percentage 0.2
+subset of train: (334, 4)
+14 instance of percentage 0.2
+subset of train: (334, 4)
+15 instance of percentage 0.2
+subset of train: (334, 4)
+16 instance of percentage 0.2
+subset of train: (334, 4)
+17 instance of percentage 0.2
+subset of train: (334, 4)
+18 instance of percentage 0.2
+subset of train: (334, 4)
+19 instance of percentage 0.2
+subset of train: (334, 4)
+---
+0 instance of percentage 0.5
+subset of train: (835, 4)
+1 instance of percentage 0.5
+subset of train: (835, 4)
+2 instance of percentage 0.5
+subset of train: (835, 4)
+3 instance of percentage 0.5
+subset of train: (835, 4)
+4 instance of percentage 0.5
+subset of train: (835, 4)
+5 instance of percentage 0.5
+subset of train: (835, 4)
+6 instance of percentage 0.5
+subset of train: (835, 4)
+7 instance of percentage 0.5
+subset of train: (835, 4)
+8 instance of percentage 0.5
+subset of train: (835, 4)
+9 instance of percentage 0.5
+subset of train: (835, 4)
+10 instance of percentage 0.5
+subset of train: (835, 4)
+11 instance of percentage 0.5
+subset of train: (835, 4)
+12 instance of percentage 0.5
+subset of train: (835, 4)
+13 instance of percentage 0.5
+subset of train: (835, 4)
+14 instance of percentage 0.5
+subset of train: (835, 4)
+15 instance of percentage 0.5
+subset of train: (835, 4)
+16 instance of percentage 0.5
+subset of train: (835, 4)
+17 instance of percentage 0.5
+subset of train: (835, 4)
+18 instance of percentage 0.5
+subset of train: (835, 4)
+19 instance of percentage 0.5
+subset of train: (835, 4)
+===
+=====
+4) split test per OOV
+Splitting test based on OOV
+=== Stats ===
+num of train unique domains: 2291
+num of test unique domains: 909
+num of common unique domains: 1121
+=== === ===
+Adding OOV to test set: 
+  uniprot_id  ...       oov
+0    P52488;  ...  0.666667
+1    Q16760;  ...  0.117647
+2    Q02038;  ...  0.250000
+3    P33307;  ...  0.333333
+4    P27113;  ...  0.052632
+
+[5 rows x 5 columns]
+---
+Split test for OOV <= 0
+split shape: (289, 5)
+---
+Split test for OOV <= 0.1
+split shape: (326, 5)
+---
+Split test for OOV <= 0.3
+split shape: (443, 5)
+---
+Split test for OOV <= 0.5
+split shape: (539, 5)
+---
+Split test for OOV <= 0.7
+split shape: (592, 5)
+---
+Split test for OOV <= 1.0
+split shape: (716, 5)
+=== ~ ===
+
+Process finished with exit code 0
+

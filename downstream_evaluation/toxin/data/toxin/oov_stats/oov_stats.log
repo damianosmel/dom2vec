@@ -1,0 +1,10 @@
+=== Toxin Experiment ===
+=====
+4) Check domains distribution in train and test
+Plot common and OOV domains occurrence histograms in test set
+=== Stats ===
+num of train unique domains: 245
+num of test unique domains: 50
+num of common unique domains: 360
+=== === ===
+Plot OOV percentage per protein in test set

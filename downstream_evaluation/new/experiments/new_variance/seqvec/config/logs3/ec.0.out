@@ -1,0 +1,13 @@
+NEW Seqvec
+=== SeqVecNet drop 0.25, lr=0.0003 - seqvec update ===
+20%
+Running train_subset_p0.2_1.csv
+Running train_subset_p0.2_2.csv
+Running train_subset_p0.2_3.csv
+Running train_subset_p0.2_4.csv
+Running train_subset_p0.2_5.csv
+Running train_subset_p0.2_6.csv
+Running train_subset_p0.2_7.csv
+Running train_subset_p0.2_8.csv
+Running train_subset_p0.2_9.csv
+Running train_subset_p0.2_10.csv

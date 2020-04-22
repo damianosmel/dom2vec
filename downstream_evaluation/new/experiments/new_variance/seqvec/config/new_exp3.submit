@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/new_seqvec_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 4096
+REQUEST_GPUs = 1
+
+output = /home/melidis/new/logs3/ec.$(Process).out
+error = /home/melidis/new/logs3/ec.$(Process).error
+log = /home/melidis/new/logs3/ec.$(Process).log
+
+Queue

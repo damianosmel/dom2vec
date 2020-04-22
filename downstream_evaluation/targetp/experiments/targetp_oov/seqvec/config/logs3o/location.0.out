@@ -1,0 +1,6 @@
+TargetP Seqvec - Test OOV splits
+=== SeqVecNet drop 0.25, lr=0.0003 - seqvec update ===
+OOV 10%
+OOV 30%
+OOV 50%
+OOV 70%

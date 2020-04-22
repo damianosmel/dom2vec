@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/targetp_oov_seqvec_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 2048
+REQUEST_GPUs = 1
+
+output = /home/melidis/targetp/logs3o/location.$(Process).out
+error = /home/melidis/targetp/logs3o/location.$(Process).error
+log = /home/melidis/targetp/logs3o/location.$(Process).log
+
+Queue

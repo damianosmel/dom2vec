@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/toxin_protvec_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 128
+REQUEST_GPUs = 1
+
+output = /home/melidis/toxin/logs2/toxin.$(Process).out
+error = /home/melidis/toxin/logs2/toxin.$(Process).error
+log = /home/melidis/toxin/logs2/toxin.$(Process).log
+
+Queue

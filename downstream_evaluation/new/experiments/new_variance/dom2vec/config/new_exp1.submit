@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/new_dom2vec_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 1024
+REQUEST_GPUs = 1
+
+output = /home/melidis/new/logs1/new.$(Process).out
+error = /home/melidis/new/logs1/new.$(Process).error
+log = /home/melidis/new/logs1/new.$(Process).log
+
+Queue

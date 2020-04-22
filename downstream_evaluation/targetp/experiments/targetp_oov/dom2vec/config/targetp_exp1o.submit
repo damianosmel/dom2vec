@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/targetp_oov_dom2vec_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 1024
+REQUEST_GPUs = 1
+
+output = /home/melidis/targetp/logs1o/location.$(Process).out
+error = /home/melidis/targetp/logs1o/location.$(Process).error
+log = /home/melidis/targetp/logs1o/location.$(Process).log
+
+Queue

@@ -1,0 +1,4 @@
+>>> print(toxin_dataset.toxin.value_counts())
+No_toxin    1747
+Toxin        523
+Name: toxin, dtype: int64

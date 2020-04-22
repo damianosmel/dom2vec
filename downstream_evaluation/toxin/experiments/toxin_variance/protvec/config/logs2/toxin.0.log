@@ -1,0 +1,104 @@
+000 (7180.000.000) 04/02 18:05:15 Job submitted from host: <192.168.1.80:9618?addrs=192.168.1.80-9618&noUDP&sock=1912_0d2b_4>
+...
+001 (7180.000.000) 04/02 18:05:25 Job executing on host: <192.168.1.86:9618?addrs=192.168.1.86-9618+[--1]-9618&noUDP&sock=9058_9cf1_8>
+...
+006 (7180.000.000) 04/02 18:05:33 Image size of job updated: 103408
+	101  -  MemoryUsage of job (MB)
+	103276  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 18:10:34 Image size of job updated: 1838348
+	1784  -  MemoryUsage of job (MB)
+	1825940  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 18:15:35 Image size of job updated: 1839352
+	1785  -  MemoryUsage of job (MB)
+	1827208  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 18:20:36 Image size of job updated: 1839484
+	1785  -  MemoryUsage of job (MB)
+	1827340  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 18:30:37 Image size of job updated: 1839672
+	1785  -  MemoryUsage of job (MB)
+	1827528  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 19:00:40 Image size of job updated: 1847284
+	1792  -  MemoryUsage of job (MB)
+	1835008  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/02 20:10:49 Image size of job updated: 1854400
+	1799  -  MemoryUsage of job (MB)
+	1841992  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 02:36:31 Image size of job updated: 1855400
+	1801  -  MemoryUsage of job (MB)
+	1843520  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 02:46:31 Image size of job updated: 1855500
+	1801  -  MemoryUsage of job (MB)
+	1843620  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 02:51:32 Image size of job updated: 1855528
+	1801  -  MemoryUsage of job (MB)
+	1843648  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 04:41:43 Image size of job updated: 1855564
+	1801  -  MemoryUsage of job (MB)
+	1843648  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 05:16:46 Image size of job updated: 1856744
+	1802  -  MemoryUsage of job (MB)
+	1844600  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 05:21:47 Image size of job updated: 1856876
+	1802  -  MemoryUsage of job (MB)
+	1844732  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 05:26:47 Image size of job updated: 1857140
+	1802  -  MemoryUsage of job (MB)
+	1844996  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 05:36:49 Image size of job updated: 1857272
+	1802  -  MemoryUsage of job (MB)
+	1845128  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 07:47:04 Image size of job updated: 1857272
+	1802  -  MemoryUsage of job (MB)
+	1845184  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 07:57:04 Image size of job updated: 1857272
+	1803  -  MemoryUsage of job (MB)
+	1845316  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 09:12:11 Image size of job updated: 1858880
+	1804  -  MemoryUsage of job (MB)
+	1847132  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 09:17:12 Image size of job updated: 1859804
+	1805  -  MemoryUsage of job (MB)
+	1848056  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 09:27:13 Image size of job updated: 1860332
+	1806  -  MemoryUsage of job (MB)
+	1848584  -  ResidentSetSize of job (KB)
+...
+006 (7180.000.000) 04/03 09:32:14 Image size of job updated: 1861124
+	1807  -  MemoryUsage of job (MB)
+	1849376  -  ResidentSetSize of job (KB)
+...
+005 (7180.000.000) 04/03 09:58:24 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 14:56:45, Sys 0 00:51:15  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 14:56:45, Sys 0 00:51:15  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	5515  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	5515  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated
+	   Cpus                 :                 1         1
+	   Disk (KB)            :       18        7     27923
+	   Gpus                 :                 1         1
+	   Memory (MB)          :     1807      128       128
+...

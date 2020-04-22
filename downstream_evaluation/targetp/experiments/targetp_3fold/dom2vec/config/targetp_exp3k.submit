@@ -1,0 +1,17 @@
+Universe = vanilla
+
+Executable = /home/melidis/targetp_kfold_dom2vec_update_run.sh
+
+GetEnv = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+stream_output = True
+
+request_memory = 1024
+REQUEST_GPUs = 1
+
+output = /home/melidis/targetp/logs3k/location.$(Process).out
+error = /home/melidis/targetp/logs3k/location.$(Process).error
+log = /home/melidis/targetp/logs3k/location.$(Process).log
+
+Queue

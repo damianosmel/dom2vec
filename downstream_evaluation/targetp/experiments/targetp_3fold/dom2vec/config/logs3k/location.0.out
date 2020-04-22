@@ -1,0 +1,15 @@
+==== ==== ==== ==== ==== ====
+inner 3-fold cross validation
+TargetP dom2vec
+==== ==== ==== ==== ==== ====
+==== ==== ==== ====
+  dom2vec update   
+==== ==== ==== ====
+CNN 1x128 0.25
+CNN 1_2x200 0.7
+LSTM hid_dim=512, num_layers=1, uni-directional
+LSTM hid_dim=512, num_layers=1, bi-directional
+FastText uni-gram
+SeqVecNet 32
+SeqVecNet 128
+SeqVecNet 512

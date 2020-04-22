@@ -1,0 +1,6 @@
+print(targetp_dataset.cellular_location.value_counts())
+Nuclear          1072
+PathwaySignal     605
+Cytosole          405
+Mitochondrial     304
+Name: cellular_location, dtype: int64
