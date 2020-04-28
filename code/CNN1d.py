@@ -2,10 +2,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class CNN1d(nn.Module):
 	"""
 	Credits: https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/4%20-%20Convolutional%20Sentiment%20Analysis.ipynb
 	"""
+
 	def __init__(self, vocab_size, embedding_dim, n_filters, filter_sizes, output_dim, dropout, pad_idx):
 		print("CNN1d")
 		super().__init__()
@@ -19,8 +21,6 @@ class CNN1d(nn.Module):
 			for fs in filter_sizes
 		])
 
-		# self.fc = nn.Linear(len(filter_sizes) * n_filters, 32)
-		# self.fc2 = nn.Linear(32, output_dim)
 		self.fc = nn.Linear(len(filter_sizes) * n_filters, output_dim)
 		self.bn = nn.BatchNorm1d(output_dim)
 		self.dropout = nn.Dropout(dropout)
@@ -55,9 +55,3 @@ class CNN1d(nn.Module):
 			return self.fc(cat)
 		else:
 			return self.bn(self.fc(cat))
-
-		# fc_out = F.relu(self.fc(cat))
-		# if fc_out.shape[0] == 1:
-		# 	return self.fc2(fc_out)
-		# else:
-		# 	return self.bn(self.fc2(fc_out))

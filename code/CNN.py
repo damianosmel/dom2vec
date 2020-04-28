@@ -2,11 +2,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class CNN(nn.Module):
 	"""
 	Class to implement CNN2d for text
 	Credits: https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/4%20-%20Convolutional%20Sentiment%20Analysis.ipynb
 	"""
+
 	def __init__(self, vocab_size, embedding_dim, n_filters, filter_sizes, output_dim,
 	             dropout, pad_idx):
 		super().__init__()
@@ -19,14 +21,12 @@ class CNN(nn.Module):
 			for fs in filter_sizes
 		])
 
-		# self.fc = nn.Linear(len(filter_sizes) * n_filters, output_dim)
-		#mutli-layers
+		# mutli-layers
 		self.fc = nn.Linear(len(filter_sizes) * n_filters, 128)
 		self.fc2 = nn.Linear(128, 128)
 		self.fc3 = nn.Linear(128, output_dim)
 		self.dropout = nn.Dropout(dropout)
 		self.bn = nn.BatchNorm1d(n_filters * len(filter_sizes))
-
 
 	def forward(self, text):
 		# text = [sent len, batch size]
@@ -57,13 +57,11 @@ class CNN(nn.Module):
 
 		normalized = self.bn(cat)
 
-		# normalized = [batch size, n_filters * len(filter_sizes)]
-		# one layer
-		# return self.fc(normalized)
-
-		#multi-layers
-		# fc_out = F.relu(self.dropout(self.fc(normalized)))
+		# multi-layers
 		fc_out = F.relu(self.fc(normalized))
-		# return self.fc2(fc_out)
+		# fc_out = [n_filters * len(filter_sizes), 128]
+
 		fc2_out = F.relu(self.fc2(fc_out))
+		# fc2_out = [128, 128]
+
 		return self.fc3(fc2_out)
