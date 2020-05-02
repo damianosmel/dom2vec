@@ -16,7 +16,7 @@ from gensim.models import KeyedVectors
 
 class EC_SCOP_Evaluate:
 	"""
-	Class to cluster domain embeddings and evaluate them based on EC or SCOPe labeling
+	Class to evaluate domain embedding space based on EC and SCOPe labeling
 	"""
 
 	def __init__(self, data_path, id_ec_scop_file, use_ec, out_name):

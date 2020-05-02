@@ -5,7 +5,6 @@ from TargetPExperiment import TargetPExperiment
 from ToxinExperiment import ToxinExperiment
 from NEWExperiment import NEWExperiment
 
-
 ###                    ###
 ### DeepLoc Experiment ###
 ###                    ###
@@ -39,6 +38,7 @@ data_set_path = DeepLocExperiment.fasta2csv(value2remove)
 ###
 # create DeepLoc location and membrane data set
 ###
+"""
 #=== remove duplicate, shuffle split train/test & k-fold split ===#
 #place initial dataset.csv to the output folder then the train,test and cross-validation sets will be created.
 print("=== ~ ===")
@@ -108,23 +108,25 @@ PrepareDataSet.subset_train(percentages, num_picks)
 
 print("=====")
 print("4) split test per OOV")
-"""
-output_path = "/home/damian/Documents/L3S/projects/datasets/deeploc"
+
+# if you create the OOV splits individually after creation of the data set
+# define the input, output
+# output_path = "/home/damian/Documents/L3S/projects/datasets/deeploc"
 # label_name = "cellular_location"
 # label_name = "membrane_soluble"
-dataset_name = "deeploc_" + "dataset_" + label_name
-output_path = join(output_path, label_name)
-data_set_path = output_path
+# dataset_name = "deeploc_" + "dataset_" + label_name
+# output_path = join(output_path, label_name)
+# data_set_path = output_path
+# PrepareDataSet = PrepareDataSet(data_set_path, output_path, dataset_name)
+# used_columns = ["train_test", "cellular_location", "membrane_soluble", "seq", "interpro_domains"]
 
-PrepareDataSet = PrepareDataSet(data_set_path, output_path, dataset_name)
-used_columns = ["train_test", "cellular_location", "membrane_soluble", "seq", "interpro_domains"]
-"""
 train_file = "deeploc_dataset_" + label_name + "_train.csv"
 test_file = "deeploc_dataset_" + label_name + "_test.csv"
 
 oov_percentages = [0, 0.1, 0.3, 0.5, 0.7, 1.0]
 PrepareDataSet.split_test_per_oov_percentage(train_file, test_file, oov_percentages, used_columns)
 print("=== ~ ===")
+"""
 
 ###                    ###
 ### TargetP Experiment ###
@@ -159,10 +161,10 @@ TargetPExperiment.fasta2csv()
 # TargetPExperiment.fasta2csv()
 """
 
-"""
 ###
 # create TargetP data set
 ###
+"""
 #=== remove duplicate, shuffle & k-fold split ===#
 #place initial dataset.csv to the output folder then the train,test and cross-validation sets will be created.
 print("=== ~ ===")
@@ -271,10 +273,10 @@ is_local_run = True
 ToxinExperiment.fasta2csv(is_local_run)
 """
 
-"""
 ###
 # create Toxin data set splits
 ###
+"""
 # === remove duplicate, shuffle & k-fold split ===#
 # place initial dataset.csv to the output folder then the train,test and cross-validation sets will be created.
 print("2) data set -> clean from non Interpro -> remove duplicates -> shuffled data set.")
@@ -367,10 +369,12 @@ remain_fasta_name = "new_remaining_seq1.fasta"
 domains_path = "/home/damian/Documents/L3S/projects/datasets/new/default_domains.tab"
 NEWExperiment = NEWExperiment(input_path, domains_path, output_path)
 NEWExperiment.fasta2csv(remain_fasta_name)
+"""
 
 ###
 # create NEW data set splits
 ###
+"""
 #=== remove duplicate, shuffle & k-fold split ===#
 #place initial dataset.csv to the output folder then the train,test and cross-validation sets will be created.
 print("2) data set -> shuffled data set.")

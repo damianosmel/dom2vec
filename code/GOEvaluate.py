@@ -9,7 +9,25 @@ from sklearn.utils.multiclass import type_of_target
 
 
 class GOEvaluate:
+	"""
+	Class to evaluate
+	"""
+
 	def __init__(self, data_path, id2label_file):
+		"""
+		GOEvaluate class init
+
+		Parameters
+		----------
+		data_path : str
+			data full path
+		id2label_file : str
+			interpro to GO id mapping file name
+
+		Returns
+		-------
+		None
+		"""
 		self.data_path = data_path
 		self.id2label_file = id2label_file
 		self.emb_model = None
@@ -19,19 +37,82 @@ class GOEvaluate:
 		self.counter_multilabel = {"no_label": 0, "one_label": 0, "multi_label": 0}
 
 	def get_emb_num_dim(self):
+		"""
+		Get number of dimensions of embedding vector
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		int
+			number of dimensions of embedding vector
+		"""
 		return self.emb_model[self.emb_model.index2entity[0]].shape[0]
 
 	def load_emb2domains(self, model_file, is_model_bin):
+		"""
+		Load embedding domains from model file
+
+		Parameters
+		----------
+		model_file : str
+			model file name
+		is_model_bin : bool
+			model is in binary format (True), otherwise (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("Load embeddings")
 		self.emb_model = KeyedVectors.load_word2vec_format(model_file, binary=is_model_bin)
 
 	def read_id_go(self):
+		"""
+		Read csv file containing domain id and its mapping to GO label
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		None
+		"""
 		self.domains_labels = pd.read_csv(join(self.data_path, self.id2label_file), sep=",", header=0)
 
 	def set_counter_label_zero(self):
+		"""
+		Set label-type counter to zero
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		"""
 		self.counter_multilabel = {"no_label": 0, "one_label": 0, "multi_label": 0}
 
 	def get_go_label(self, domains_go, remove_multilabel, use_shortest):
+		"""
+		Get GO molecular function label for given GO id, using two ways:
+		1) short_parent: use the GO annotation extracted from the shortest parent having as child starting GO id
+		2) one_level_parents: use the GO annotation extracted from all one level parents containing GO id as sub-child
+		Parameters
+		----------
+		domains_go : pandas.DataFrame row
+			dataframe row containing info for single domain
+		remove_multilabel : bool
+			remove domain/row that containing more than one GO id (True), otherwise keep multilabel rows (False)
+		use_shortest : bool
+			use the shortest parent "way" (True),
+			use the one level parents "way" (False)
+
+		Returns
+		-------
+		str
+			domain GO id
+		"""
 		if use_shortest:
 			label = str(domains_go["short_parent"])
 		else:
@@ -52,7 +133,21 @@ class GOEvaluate:
 		return domains_go
 
 	def calc_label_stats(self, domains, use_shortest):
+		"""
+		Calculate label statistics
 
+		Parameters
+		----------
+		domains : pandas.DataFrame row
+			domain info row
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		if use_shortest:
 			col = str(domains["short_parent"])
 		else:
@@ -66,6 +161,22 @@ class GOEvaluate:
 			self.counter_multilabel["multi_label"] += 1
 
 	def get_label_names(self, remove_multilabel, use_shortest):
+		"""
+		Get GO label statistics
+
+		Parameters
+		----------
+		remove_multilabel : bool
+			remove domains with multi-label GO annotation (True), otherwise (False)
+
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("Get label names")
 		# read interpro_go csv file and get statistics for multilabel domains
 		self.read_id_go()
@@ -84,6 +195,19 @@ class GOEvaluate:
 			self.counter_multilabel.values()), "AssertionError: the number of rows should be equal with the number of sum counts of (no EC, single EC, multi EC)"
 
 	def domains2vectors(self, domains):
+		"""
+		Convert domain id to embedding vector
+
+		Parameters
+		----------
+		domains : pandas.DataFrame
+			domain row info
+
+		Returns
+		-------
+		numpy.array
+			embedding vector
+		"""
 		if domains["interpro_ids"] in self.emb_model.wv.vocab:  # check if interpro id exists in word model
 			return self.emb_model[domains["interpro_ids"]]
 		else:
@@ -91,6 +215,22 @@ class GOEvaluate:
 			return [0] * self.get_emb_num_dim()
 
 	def convert_label2int(self, domains, use_shortest):
+		"""
+		Convert GO label to int value
+
+		Parameters
+		----------
+		domains : pandas.DataFrame row
+			domain row
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		pandas.DataFrame
+			domain row with GO label in integer format
+		"""
 		if "unknown" in self.unique_labels:
 			self.unique_labels.remove("unknown")
 		name2num = {label: num for num, label in enumerate(self.unique_labels)}
@@ -111,6 +251,19 @@ class GOEvaluate:
 		return domains
 
 	def create_Xy(self, use_shortest):
+		"""
+		Convert domains->GO dataframe to vectors and labels
+
+		Parameters
+		----------
+		use_shortest : bool
+		use the annotation extracted using the short parent node information (True),
+		use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		# Clean: a) get all not unknown labels, b) remove not used columns
 		if use_shortest:
 			self.domains_labels = self.domains_labels[self.domains_labels.short_parent != "unknown"]
@@ -129,6 +282,19 @@ class GOEvaluate:
 		self.domains_labels.drop(columns=["vector"], inplace=True)
 
 	def print_domains_labels(self, use_shortest):
+		"""
+		Print unique GO labels distribution
+
+		Parameters
+		----------
+		use_shortest : bool
+		use the annotation extracted using the short parent node information (True),
+		use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("---")
 		print(self.domains_labels.head())
 
@@ -140,6 +306,19 @@ class GOEvaluate:
 		print("---")
 
 	def prepare_GO_labels(self, use_shortest):
+		"""
+		Convert GO label to homogeneous labels for learning experiments
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		# Clean: a) get all not unknown labels, b) remove not used columns
 		if use_shortest:
 			self.domains_labels = self.domains_labels[self.domains_labels.short_parent != "unknown"]
@@ -152,6 +331,19 @@ class GOEvaluate:
 		self.domains_labels.apply(self.convert_label2int, use_shortest=use_shortest, axis=1)
 
 	def map_dom2GO(self, use_shortest):
+		"""
+		Map domain id to GO
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("go_labels.csv -> interpro_id, GO class")
 		remove_multilabeled = True
 		self.get_label_names(remove_multilabeled, use_shortest)
@@ -170,6 +362,23 @@ class GOEvaluate:
 			self.domains_labels = self.domains_labels.astype({"interpro_ids": str, "one_level_parents": int})
 
 	def convert_dom2Xy(self, use_shortest, model_file, is_model_bin):
+		"""
+		Convert domains->GO labels to embedding vector and labels
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+		model_file : str
+			domains embedding file name
+		is_model_bin : bool
+			the embedding model is in binary format (True), otherwise (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("Convert go_labels.csv -> (X,y)")
 		remove_multilabeled = True
 		self.get_label_names(remove_multilabeled, use_shortest)
@@ -191,9 +400,30 @@ class GOEvaluate:
 			["x_" + str(i) for i in range(self.get_emb_num_dim())]].astype(float)
 
 	def get_x(self):
+		"""
+		Get embedding vector values
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		numpy.array
+			embedding vector
+		"""
 		return self.domains_labels[["x_" + str(i) for i in range(self.get_emb_num_dim())]]
 
 	def run_NN(self, use_shortest):
+		"""
+		Run k-NN algorithm
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+		:return:
+		"""
 		print("Run kNN")
 
 		x_min, x_max = np.min(self.get_x().values, 0), np.max(self.get_x().values, 0)
@@ -208,8 +438,6 @@ class GOEvaluate:
 		skf = StratifiedKFold(n_splits=5, random_state=self.random_state)
 
 		fold_idx = 0
-		# train_acc_models = {2: [], 5: [], 10: [], 20: []}
-		# test_acc_models = {2: [], 5: [], 10: [], 20: [], 40: []} #for k-NN we can only assess the test acc
 		test_acc_models = {2: [], 5: [], 20: [], 40: []}
 
 		for train_index, test_index in iter(skf.split(X, y)):
@@ -219,17 +447,16 @@ class GOEvaluate:
 			y_train = y[train_index]
 			X_test = X[test_index]
 			y_test = y[test_index]
-			n_classes = len(np.unique(y_train))
 			estimators = {nn_num: neighbors.KNeighborsClassifier(nn_num, weights='distance')
 			              for nn_num in [2, 5, 20, 40]}
-			n_estimators = len(estimators)
+
 			for index, (nn_num, estimator) in enumerate(estimators.items()):
 				estimator.fit(X_train, y_train)
 				y_test_pred = estimator.predict(X_test)
 				test_accuracy = np.mean(y_test_pred.ravel() == y_test.ravel()) * 100
 				test_acc_models[nn_num].append(test_accuracy)
-			# print("k-NN with k={} test accuracy: {:.3f}".format(nn_num, test_accuracy))
-			# print("---")
+		# print("k-NN with k={} test accuracy: {:.3f}".format(nn_num, test_accuracy))
+		# print("---")
 
 		for nn_num in [2, 5, 20, 40]:
 			print("=== {}-NN ===".format(nn_num))
@@ -238,12 +465,28 @@ class GOEvaluate:
 			print("avg test acc: {}".format(sum(test_acc_models[nn_num]) / float(len(test_acc_models[nn_num]))))
 
 	def calculate_precision_k(self, use_shortest, model_file, is_model_bin):
+		"""
+		Calculate precision at k
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+		model_file : str
+			model file name
+		is_model_bin : bool
+			model is binary format (True), otherwise (False)
+		Returns
+		-------
+		list of int, list of float
+			number of used k's
+			average precision achieved for each k
+		"""
 		# load emb model
 		self.load_emb2domains(model_file, is_model_bin)
 
 		NNs_num = [i * 10 for i in range(1, 11)]
-		# NNs_num = [i * 10 for i in range(1,3)]
-
 		avg_precision_k = [0.0] * len(NNs_num)
 		for i in range(len(NNs_num)):
 			num_examined_interpro = 0
@@ -282,9 +525,45 @@ class GOEvaluate:
 		return NNs_num, avg_precision_k
 
 	def run_precision(self, use_shortest, model_file, is_model_bin):
+		"""
+		Run precision@K experiment
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+		model_file : str
+			model file name
+		is_model_bin : bool
+			is model in binary format (True), otherwise (False)
+
+		Returns
+		-------
+		list of int, list of float
+			number of used k's
+			average precision achieved for each k
+		"""
 		self.map_dom2GO(use_shortest)
 		return self.calculate_precision_k(use_shortest, model_file, is_model_bin)
 
 	def run_classification(self, use_shortest, model_file, is_model_bin):
+		"""
+		Run k-NN classification
+
+		Parameters
+		----------
+		use_shortest : bool
+			use the annotation extracted using the short parent node information (True),
+			use the annotation extracted using the one level parents node information (False)
+		model_file : str
+			model file name
+		is_model_bin : bool
+			is model in binary format (True), otherwise (False)
+
+		Returns
+		-------
+		None
+		"""
 		self.convert_dom2Xy(use_shortest, model_file, is_model_bin)
 		self.run_NN(use_shortest)
