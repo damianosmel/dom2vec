@@ -10,6 +10,7 @@ from utils import write_random_vectors, create_dir
 import itertools
 import matplotlib.pyplot as plt
 import numpy as np
+
 print("=== Intrinsic Evaluation ===")
 ###                       ###
 ### Random domain vectors ###
@@ -97,7 +98,7 @@ print("--- ---")
 """
 
 ###                 ###
-###  GOSimEvaluate  ###
+###    GOEvaluate   ###
 ###                 ###
 
 ###                                          ###
@@ -127,7 +128,7 @@ prepareInterPro2GO.convert_go_labels(keep_only_MF=True)#get first level GO annot
 ### Evaluate embeddings with GO molecular function ###
 ###                                                ###
 
-#print("Predict 1-level GO annotation using k-NN -> evaluate embeddings")
+# print("Predict 1-level GO annotation using k-NN -> evaluate embeddings")
 # create all trained embeddings possible instances
 ### dom2vec ###
 # window = [2] #[2, 5]#[2, 5]
@@ -359,7 +360,6 @@ print("=== ===")
 ###                                          ###
 ### Preprocess interpro.xml for EC and SCOPe ###
 ###                                          ###
-
 """
 #get association id -> EC and SCOPe
 print("EC and SCOPe -> k-NN Performance")
@@ -517,4 +517,5 @@ for emb_instance in all_emb_instances:
 	                         classifier_name="NN")  # run lle, pca,t-sne
 	print("---")
 """
-print("=== End ===")
+print("=== * ===")
+print("== *** ==")

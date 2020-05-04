@@ -146,9 +146,7 @@ elif model_type == "SeqVecCharNet":
 	model_setup.config_SeqVecCharNet_model(model_type, hid_dim, dropout)
 
 # configure loss + optimizer
-# if (dataset_name == "DeepLoc" and label_name == "cellular_location") or dataset_name in ["TargetP", "NEW"]:
 model_setup.calculate_label_weights("balanced_scikit")
-# model_setup.calculate_label_weights("default")
 model_setup.config_criterion_optimizer(learning_rate, weight_decay)
 
 # --- Run model ---#
