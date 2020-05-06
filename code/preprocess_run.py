@@ -3,6 +3,12 @@ from Preprocess import Preprocess
 from Corpus import Corpus
 from utils import sec2hour_min_sec
 
+###                                ###
+###          Deprecated            ###
+### please see main instead        ###
+###                                ###
+
+
 """
 File to run all pre-processing steps
 """
