@@ -74,7 +74,7 @@ interpro_tree_file_name = "ParentChildTreeFile.txt"
 interpro_tree_file = os.path.join(interpro_tree_path, interpro_tree_file_name)
 parsed_tree_file_name = "interpro_parsed_tree.txt"  # Output file
 save_parsed_tree = False
-parent_child_eval.parse_parentChildFile(interpro_tree_file, interpro_tree_path, parsed_tree_file_name, save_parsed_tree)
+parent_child_eval.parse_parent_child_file(interpro_tree_file, interpro_tree_path, parsed_tree_file_name, save_parsed_tree)
 
 is_model_bin = False
 for emb_instance in all_emb_instances:

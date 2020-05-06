@@ -1,21 +1,36 @@
-import os, ntpath
+import os
 import numpy as np
 from pandas import read_csv, concat
 from sklearn.model_selection import KFold, train_test_split, StratifiedKFold
 import matplotlib.pyplot as plt
-from utils import create_dir, get_freq_as_keys, is_interpro_domain
+from utils import create_dir, is_interpro_domain
 from math import ceil, log10
 
 
 class PrepareDataSet:
 	"""
-	Common utilities for preparing data set:
+	Class for common utilities to prepare data set
 	1) Spliting in train and test:
 	dataset.csv -> dataset_train.csv dataset_test.csv
-
 	"""
 
 	def __init__(self, dataset_path, output_path, dataset_name):
+		"""
+		PrepareDataSet Class init
+
+		Parameters
+		----------
+		dataset_path : str
+			input data set full path
+		output_path : str
+			output path
+		dataset_name : str
+			data set name
+
+		Returns
+		-------
+		None
+		"""
 		self.dataset_path = dataset_path
 		self.output_path = output_path
 		create_dir(self.output_path)
@@ -26,10 +41,18 @@ class PrepareDataSet:
 
 	def read_dataset(self, use_columns):
 		"""
+		Read initial data csv
 		if a directory is given read all the csvs file and create the merged data set
 		if only one csv is given load it to create the merged data set
-		:param use_columns: list of columns names to use
-		:return:
+
+		Parameters
+		----------
+		use_columns : list of str
+			list of columns names to use for data set creation
+
+		Returns
+		-------
+		None
 		"""
 		print("Loading csv(s) -> data set.")
 		if len(use_columns) > 1:
@@ -56,12 +79,23 @@ class PrepareDataSet:
 				self.dataset = read_csv(self.dataset_path, sep=",", header=0)
 
 	def remove_duplicate_instances(self, x_col_name, y_col_name):
+		"""
+		Remove duplicate instances
 
+		Parameters
+		----------
+		x_col_name : name of columns defining X
+		y_col_name : name of columns defining Y
+
+		Returns
+		-------
+		None
+		"""
 		print("Removing duplicate instances joining x:{} and y:{} columns".format(x_col_name, y_col_name))
 		if y_col_name != None:
 			self.dataset = self.dataset.drop_duplicates(subset=[x_col_name, y_col_name], keep='first')
 		else:
-			self.dataset = self.dataset.drop_duplicates(subset=[x_col_name],keep='first')
+			self.dataset = self.dataset.drop_duplicates(subset=[x_col_name], keep='first')
 		print("Data set shape: {}".format(self.dataset.shape))
 
 	def save_dataset(self, remove_ids):
@@ -83,6 +117,18 @@ class PrepareDataSet:
 		self.dataset.to_csv(os.path.join(self.output_path, self.dataset_name + ".csv"), sep=",", index=False)
 
 	def split_train_test(self, train_test_col):
+		"""
+		Split data into train and test
+
+		Parameters
+		----------
+		train_test_col : str
+			name of column indicating train/test instance
+
+		Returns
+		-------
+		None
+		"""
 		train_file_name = self.dataset_name + "_train.csv"
 		test_file_name = self.dataset_name + "_test.csv"
 		with open(os.path.join(self.output_path, train_file_name), 'w') as train_file, open(
@@ -100,6 +146,22 @@ class PrepareDataSet:
 			dataset_test.to_csv(test_file, sep=",", index=False)
 
 	def split_train_test_stratified(self, x_columns, y_name, test_portion):
+		"""
+		Split data into train and test using stratified split based on Y label
+
+		Parameters
+		----------
+		x_columns : list of str
+			list of columns defining X
+		y_name : str
+			column name defining Y
+		test_portion : float
+			split portion of test
+
+		Returns
+		-------
+		None
+		"""
 		print("Performing train/test split stratified for {}, test size: {}.".format(y_name, test_portion))
 		train_file_name = self.dataset_name + "_train.csv"
 		test_file_name = self.dataset_name + "_test.csv"
@@ -113,6 +175,22 @@ class PrepareDataSet:
 		print("---")
 
 	def split_inner_stratified_kfold(self, k, x_columns, y_column):
+		"""
+		Split train set in k folds using stratified splits, to run cross validation
+
+		Parameters
+		----------
+		k : int
+			number of folds
+		x_columns : list of str
+			list of columns defining X
+		y_column : str
+			column name defining Y
+
+		Returns
+		-------
+		None
+		"""
 		print("Splitting training set with inner {}-fold stratified on {}.".format(k, y_column))
 		X = self.dataset_train[x_columns]
 		y = self.dataset_train[y_column]
@@ -133,6 +211,20 @@ class PrepareDataSet:
 		print("---")
 
 	def subset_train(self, percentages, num_picks):
+		"""
+		Subset train set by given percentage, perform subset num_picks times randomly
+
+		Parameters
+		----------
+		percentages : list of float
+			list of percentages to subset train set
+		num_picks : int
+			number of random picks for each subset
+
+		Returns
+		-------
+		None
+		"""
 		print("Subseting training set in {} realizations for each percentage in {}".format(num_picks, percentages))
 		for percentage in percentages:
 			print("---")
@@ -145,11 +237,21 @@ class PrepareDataSet:
 		print("===")
 
 	def split_train_kfold(self, k, x_columns):
+		"""
+		Split train set in k folds
+		Credits: https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-iterators
+		Parameters
+		----------
+		k : int
+			number of of folds
+		x_columns : list of str
+			list of columns defining X
+
+		Returns
+		-------
+		None
+		"""
 		print("=== K-fold ===")
-		###
-		# Split train set to k-folds
-		# Credits: https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-iterators
-		###
 		if "train_test" in x_columns:  # for DeepLoc there exists a column to show training or testing instance
 			dataset_train = self.dataset.loc[self.dataset.train_test == 'train']
 		else:  # for targetP take the original dataset shuffled
@@ -176,12 +278,22 @@ class PrepareDataSet:
 		print("---")
 
 	def shuffle_dataset(self):
+		"""
+		Shuffle data set
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		None
+		"""
 		print("Shuffling data set..")
 		self.dataset = self.dataset.sample(frac=1).reset_index(drop=True)
 
 	def find_common_and_oov_domains(self, train_file, test_file):
 		"""
-		Function to find common and out of vocabulary (oov) domains in train and test
+		Find common and out of vocabulary (oov) domains in train and test
 
 		Parameters
 		----------
@@ -227,7 +339,7 @@ class PrepareDataSet:
 
 	def calculate_domains_freq(self, data_set_file):
 		"""
-		Function to calculate the frequency of each domain in given data set
+		Calculate the frequency of each domain in given data set
 
 		Parameters
 		----------
@@ -254,7 +366,7 @@ class PrepareDataSet:
 
 	def plot_oov_common_domains(self, domains_freq, oov_domains, train_test_name):
 		"""
-		Function to plot the domains frequency of all domains and the oov domains in (test set)
+		Plot the domains frequency of all domains and the oov domains in (test set)
 
 		Parameters
 		----------
@@ -298,7 +410,7 @@ class PrepareDataSet:
 
 	def plot_oov_percentages_hist(self, oov_percentages, train_test_name):
 		"""
-		Function to plot the histogram of OOV domain percentage
+		Plot the histogram of OOV domain percentage
 
 		Parameters
 		----------
@@ -329,7 +441,7 @@ class PrepareDataSet:
 
 		Parameters
 		----------
-			df : pandas.dataframe to calculate OOV for
+			df : pandas.DataFrame to calculate OOV for
 				dataframe to calculate OOV for
 			oov_domains : list of str
 				list of oov domains
@@ -343,12 +455,13 @@ class PrepareDataSet:
 		for dom in domains:
 			if dom in oov_domains:
 				oov_sum += 1.0
-		assert oov_sum >= 0 and oov_sum <= len(domains), "AssertionError: total oov should be in [0, num of all domains]"
+		assert oov_sum >= 0 and oov_sum <= len(
+			domains), "AssertionError: total oov should be in [0, num of all domains]"
 		return oov_sum / len(domains)
 
 	def calculate_oov_per_protein(self, data_set_file, oov_domains):
 		"""
-		Function to calculate the percentage of OOV domains per protein sample
+		Calculate the percentage of OOV domains per protein sample
 
 		Parameters
 		----------
@@ -377,7 +490,7 @@ class PrepareDataSet:
 
 	def count_num_proteins_per_dom_type(self):
 		"""
-		Function to count number of proteins per domain type
+		Count number of proteins per domain type
 
 		Parameters
 		----------
@@ -416,12 +529,15 @@ class PrepareDataSet:
 			else:
 				interpro_count += 1.0
 
-		assert unk_count + gap_count + gap_unk_count + interpro_count == self.dataset.shape[0], "AssertionError: the total number of counts should be equal the number of protein instances."
+		assert unk_count + gap_count + gap_unk_count + interpro_count == self.dataset.shape[
+			0], "AssertionError: the total number of counts should be equal the number of protein instances."
 
-		print("Protein instances with ONLY unknown domains: {}% ".format((unk_count/self.dataset.shape[0]) * 100.0))
-		print("Protein instances with ONLY gap domains: {}%".format((gap_count/self.dataset.shape[0]) * 100.0))
-		print("Protein instances with ONLY gap and unknown domains: {}%".format((gap_unk_count/self.dataset.shape[0]) * 100.0))
-		print("Protein instances with ONLY Interpro domains: {}%".format((interpro_count/self.dataset.shape[0]) * 100.0))
+		print("Protein instances with ONLY unknown domains: {}% ".format((unk_count / self.dataset.shape[0]) * 100.0))
+		print("Protein instances with ONLY gap domains: {}%".format((gap_count / self.dataset.shape[0]) * 100.0))
+		print("Protein instances with ONLY gap and unknown domains: {}%".format(
+			(gap_unk_count / self.dataset.shape[0]) * 100.0))
+		print("Protein instances with ONLY Interpro domains: {}%".format(
+			(interpro_count / self.dataset.shape[0]) * 100.0))
 
 	@staticmethod
 	def count_unique_domains(df):
@@ -445,7 +561,7 @@ class PrepareDataSet:
 
 	def remove_unk_gap_proteins(self):
 		"""
-		Function to remove all protein instances that contain
+		Remove all protein instances that contain
 		only unknown full length domain or only gap domain (or gap domains)
 
 		Parameters
@@ -466,8 +582,6 @@ class PrepareDataSet:
 		gap_domain = self.dataset['interpro_domains'].str.contains("GAP")
 		unk_dom_df = self.dataset.loc[one_uniq_domain & unk_domain]
 		gap_dom_df = self.dataset.loc[one_uniq_domain & gap_domain]
-		#if unk and gap can be together then the num of uniq domains == 2
-		# unk_gap_dom_df = self.dataset.loc[one_uniq_domain & unk_domain & gap_domain].drop(label='num_unique_doms') #may be empty but ok
 		removed_proteins_df = concat([unk_dom_df, gap_dom_df])
 
 		removed_proteins_df.drop("num_unique_doms", axis=1, inplace=True)
@@ -476,11 +590,12 @@ class PrepareDataSet:
 		self.dataset.drop("num_unique_doms", axis=1, inplace=True)
 		print("Removed instances data frame shape: {}".format(removed_proteins_df.shape))
 		print("Final data set data frame shape: {}".format(self.dataset.shape))
-		removed_proteins_df.to_csv(os.path.join(self.output_path, self.dataset_name + "_removed.csv"), sep=",", index=False)
+		removed_proteins_df.to_csv(os.path.join(self.output_path, self.dataset_name + "_removed.csv"), sep=",",
+		                           index=False)
 
 	def plot_oov_per_class_hist(self, oov_unknown_per_class, oov_interpro_per_class, train_test_name):
 		"""
-		Function to plot OOV per class in the train or test set
+		Plot OOV per class in the train or test set
 		# Credits: https://stackoverflow.com/questions/18449602/matplotlib-creating-stacked-histogram-from-three-unequal-length-arrays
 
 		Parameters
@@ -500,20 +615,21 @@ class PrepareDataSet:
 		fig, axs = plt.subplots(len(oov_interpro_per_class), sharex=True, sharey=True)
 		fig.suptitle("Histograms of OOV for unknown full-length and Interpro domains in " + train_test_name)
 		for ax_idx, label_class in enumerate(oov_interpro_per_class.keys()):
-			axs[ax_idx].hist([oov_interpro_per_class[label_class], oov_unknown_per_class[label_class]], bins, stacked=True, density=False, histtype='bar', cumulative=False,
-			            color=['tab:green', 'tab:orange'], edgecolor='k', alpha=0.8)
+			axs[ax_idx].hist([oov_interpro_per_class[label_class], oov_unknown_per_class[label_class]], bins,
+			                 stacked=True, density=False, histtype='bar', cumulative=False,
+			                 color=['tab:green', 'tab:orange'], edgecolor='k', alpha=0.8)
 			axs[ax_idx].set_ylabel(label_class, rotation=75)
 		axs[ax_idx].legend({"Interpro": 'tab:green', "Unknown full-length": 'tab:orange'})
 		axs[ax_idx].set(xlabel="OOV %")
 
 		for ax in axs:
 			ax.label_outer()
-		hist_name = self.dataset_name + "_" + train_test_name.split()[0] +"_oov_interpro_unk_per_class_hist.png"
+		hist_name = self.dataset_name + "_" + train_test_name.split()[0] + "_oov_interpro_unk_per_class_hist.png"
 		fig.savefig(os.path.join(self.dataset_path, hist_name), bbox_inches='tight', dpi=600)
 
 	def calculate_oov_per_class(self, data_set_file, oov_domains):
 		"""
-		Function to calculate the percentage of OOV per class
+		Calculate the percentage of OOV per class
 
 		Parameters
 		----------
@@ -533,34 +649,36 @@ class PrepareDataSet:
 		oov_interpro_per_class = {}
 		data_set = read_csv(os.path.join(self.dataset_path, data_set_file), sep=",", header=0)
 		for _, protein in data_set.iterrows():
-			#for each protein first compute the OOV percentage of unknown full-length domains and interpro domains
-			#then assign the percentages
+			# for each protein first compute the OOV percentage of unknown full-length domains and interpro domains
+			# then assign the percentages
 			oov_unk = 0.0
 			oov_interpro = 0.0
 			no_oov = 0.0
 			for dom in protein["interpro_domains"].split(" "):
-					if dom in oov_domains:
-						if dom[0:3] == "IPR" or dom[0:3] == "GAP":
-							oov_interpro += 1
-						else:
-							oov_unk += 1
+				if dom in oov_domains:
+					if dom[0:3] == "IPR" or dom[0:3] == "GAP":
+						oov_interpro += 1
 					else:
-						no_oov += 1
-			assert no_oov + oov_interpro + oov_unk == len(protein["interpro_domains"].split(" ")), "AssertionError: For current protein total oov and no oov does not sum up to the total number of domains."
+						oov_unk += 1
+				else:
+					no_oov += 1
+			assert no_oov + oov_interpro + oov_unk == len(protein["interpro_domains"].split(
+				" ")), "AssertionError: For current protein total oov and no oov does not sum up to the total number of domains."
 			if protein.iloc[0] not in oov_unknown_per_class:
-				oov_unknown_per_class[protein.iloc[0]] = [oov_unk/len(protein["interpro_domains"].split(" "))]
+				oov_unknown_per_class[protein.iloc[0]] = [oov_unk / len(protein["interpro_domains"].split(" "))]
 			else:
-				oov_unknown_per_class[protein.iloc[0]].append(oov_unk/len(protein["interpro_domains"].split(" ")))
+				oov_unknown_per_class[protein.iloc[0]].append(oov_unk / len(protein["interpro_domains"].split(" ")))
 			if protein.iloc[0] not in oov_interpro_per_class:
-				oov_interpro_per_class[protein.iloc[0]] = [oov_interpro/len(protein["interpro_domains"].split(" "))]
+				oov_interpro_per_class[protein.iloc[0]] = [oov_interpro / len(protein["interpro_domains"].split(" "))]
 			else:
-				oov_interpro_per_class[protein.iloc[0]].append(oov_interpro/len(protein["interpro_domains"].split(" ")))
+				oov_interpro_per_class[protein.iloc[0]].append(
+					oov_interpro / len(protein["interpro_domains"].split(" ")))
 
 		return oov_unknown_per_class, oov_interpro_per_class
 
 	def diagnose_oov_domains(self, train_file, test_file, use_test4analysis, unk_domains_exist):
 		"""
-		Function to diagnose out of vocabulary (oov) domains
+		Diagnose out of vocabulary (oov) domains
 
 		Parameters
 		----------
@@ -600,14 +718,16 @@ class PrepareDataSet:
 		if unk_domains_exist:
 			print("Plot OOV percentage per protein per class in " + file_name4analysis)
 			if use_test4analysis:
-				oov_unknown_per_class, oov_interpro_per_class = self.calculate_oov_per_class(test_file, unique_domains_test)
+				oov_unknown_per_class, oov_interpro_per_class = self.calculate_oov_per_class(test_file,
+				                                                                             unique_domains_test)
 			else:
-				oov_unknown_per_class, oov_interpro_per_class = self.calculate_oov_per_class(train_file, unique_domains_train)
+				oov_unknown_per_class, oov_interpro_per_class = self.calculate_oov_per_class(train_file,
+				                                                                             unique_domains_train)
 			self.plot_oov_per_class_hist(oov_unknown_per_class, oov_interpro_per_class, file_name4analysis)
 
 	def split_test_per_oov_percentage(self, train_file, test_file, oov_percentages, used_columns):
 		"""
-		Function to split test per oov percentage
+		Split test per oov percentage
 
 		Parameters
 		----------
@@ -625,7 +745,8 @@ class PrepareDataSet:
 		None
 		"""
 		print("Splitting test based on OOV")
-		unique_domains_train, unique_domains_test, common_domains = self.find_common_and_oov_domains(train_file, test_file)
+		unique_domains_train, unique_domains_test, common_domains = self.find_common_and_oov_domains(train_file,
+		                                                                                             test_file)
 		print("Adding OOV to test set: ")
 		test_df = read_csv(os.path.join(self.dataset_path, test_file), sep=",", header=0, usecols=used_columns)
 		test_df["oov"] = test_df.apply(self.calculate_oov_percentage, axis=1, oov_domains=unique_domains_test)
@@ -638,7 +759,8 @@ class PrepareDataSet:
 			test_oov_df = test_df.loc[oov_percentage_lim]
 			print("split shape: {}".format(test_oov_df.shape))
 			test_oov_file = test_file.split(".csv")[0] + "_" + str(percentage) + ".csv"
-			test_oov_df.to_csv(os.path.join(self.output_path, test_oov_file), sep=",", index=False, columns=used_columns)
+			test_oov_df.to_csv(os.path.join(self.output_path, test_oov_file), sep=",", index=False,
+			                   columns=used_columns)
 
 	@staticmethod
 	def replace_domains_df(data_df, preprocess_df):
@@ -647,14 +769,14 @@ class PrepareDataSet:
 
 		Parameters
 		----------
-		data_df : pandas.dataframe
+		data_df : pandas.DataFrame
 			dataframe from whose domains will be replaced
-		preprocess_df : pandas.dataframe
+		preprocess_df : pandas.DataFrame
 			dataframe original after all preprocessing, it contains the new kind of domains
 			used to new kind of domains
 		Returns
 		-------
-		data_df : pandas.dataframe
+		data_df : pandas.DataFrame
 			dataframe with replaced domains
 		"""
 		all_domains = str(data_df["interpro_domains"]).split(" ")
@@ -672,38 +794,38 @@ class PrepareDataSet:
 
 		Parameters
 		----------
-		data_df : pandas.dataframe
+		data_df : pandas.DataFrame
 			dataframe from which to remove all non interpro domains
 		id_col_exists : bool
 			flag to show if id column exists in the dataset dataframe (default is True)
 
 		Returns
 		-------
-		data_df : pandas.dataframe
+		data_df : pandas.DataFrame
 			dataframe with removed non interpro domains
 		"""
 		all_domains = str(data_df["interpro_domains"]).split(" ")
 
 		interpro_domains = [dom for dom in all_domains if is_interpro_domain(dom)]
 		if len(interpro_domains) == 0:
-			#if all domain list is empty, after removal of non interpro domains,
+			# if all domain list is empty, after removal of non interpro domains,
 			# add a full length unk domain
 			if id_col_exists:
-				interpro_domains.append(str(data_df.iloc[0]).strip(";")+"_unk_dom") #the strip only for TargetP id
+				interpro_domains.append(str(data_df.iloc[0]).strip(";") + "_unk_dom")  # the strip only for TargetP id
 			else:
-				interpro_domains.append(str(data_df.name)+"_unk_dom")
+				interpro_domains.append(str(data_df.name) + "_unk_dom")
 		data_df["interpro_domains"] = " ".join(interpro_domains)
 		return data_df
 
 	def remove_no_interpro_domains(self, use_columns, id_col_exists=True):
 		"""
-		Function remove no Interpro domains (GAP and unknown full-length protein are accepted) from data set
+		Remove no Interpro domains (GAP and unknown full-length protein are accepted) from data set
 		if a directory is given read all the csvs file and clean each csv
 		if only one csv is given then clean it
 
 		Parameters
 		----------
-		preprocess_out_csv : pandas.dataframe
+		preprocess_out_csv : pandas.DataFrame
 			initial csv after preprocessing
 		use_columns: list of str
 			columns names to use
@@ -721,13 +843,13 @@ class PrepareDataSet:
 
 	def replace_domains(self, preprocess_out_csv, use_columns, clean_after):
 		"""
-		Function replace domains of each csv in self.dataset_path with domains found in preprocess_out_csv
+		Replace domains of each csv in self.dataset_path with domains found in preprocess_out_csv
 		if a directory is given read all the csvs file and replace domains for each one
 		if only one csv is given then replace domains for this only
 
 		Parameters
 		----------
-		preprocess_out_csv : pandas.dataframe
+		preprocess_out_csv : pandas.DataFrame
 			initial csv after preprocessing (containing the new kind of domains)
 		use_columns : list of str
 			columns names to use
@@ -765,7 +887,7 @@ class PrepareDataSet:
 
 		Parameters
 		----------
-		data_df : pandas.dataframe
+		data_df : pandas.DataFrame
 			dataframe to read domains from
 		oov_domains : list of str
 			list of OOV domains
@@ -785,7 +907,7 @@ class PrepareDataSet:
 
 	def swap_instances2increase_common_domains(self, train_file, test_file):
 		"""
-		Function to swap instances between train and test to increase common domains
+		Swap instances between train and test to increase common domains
 
 		Parameters
 		---------
@@ -805,7 +927,7 @@ class PrepareDataSet:
 		                                                                                             test_file)
 		# find the frequencies of unique domains in train
 		domains_freq_train = self.calculate_domains_freq(train_file)
-		#find oov per protein in test
+		# find oov per protein in test
 		print("Find OOV for test set:")
 		test_df = read_csv(os.path.join(self.dataset_path, test_file), sep=",", header=0)
 		test_df["oov_ratio_test"] = test_df.apply(self.calculate_oov, oov_domains=unique_domains_test, axis=1)

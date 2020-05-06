@@ -15,7 +15,7 @@ class DeepLocExperiment:
 
 	def __init__(self, fasta_path, domains_path, output_path, label_name):
 		"""
-		Corpus class init
+		DeepLocExperiment class init
 
 		Parameters
 		----------
