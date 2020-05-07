@@ -13,6 +13,20 @@ class ToxinExperiment:
 	"""
 
 	def __init__(self, fasta_dir_path, domains_path, output_path):
+		"""
+		ToxinExperiment class init
+
+		Parameters
+		----------
+		fasta_dir_path : str
+			full path to fasta file directory
+		domains_path : str
+		output_path : str
+
+		Returns
+		-------
+		None
+		"""
 		self.fasta_dir_path = fasta_dir_path
 		self.domains_path = domains_path
 		self.output_path = output_path
@@ -26,8 +40,16 @@ class ToxinExperiment:
 		"Machine learning can differentiate venom toxins from other proteins having non-toxic physiological functions."
 		PeerJ Computer Science 2 (2016): e90.
 		Section: Methods - Datasets.
-		:param fasta_file: full path of fasta file
-		:return: String of label name( Toxin (pos), No_toxin (hard))
+
+		Parameters
+		----------
+		fasta_file : str
+			full path of fasta file
+
+		Returns
+		-------
+		str
+			String of label name(Toxin (pos), No_toxin (hard))
 		"""
 		base_name = basename(fasta_file)
 		name = splitext(base_name)[0]
@@ -42,12 +64,32 @@ class ToxinExperiment:
 		"""
 		Extract only the uniprot id as key of the proteins_dict
 		Example: 'sp_tox|F8QN53|PA2A2_VIPRE' -> F8QN53
-		:param proteins_dict:
-		:return:
+
+		Parameters
+		----------
+		proteins_dict : dict
+			protein record dict as provided by SeqIO
+
+		Returns
+		-------
+		str
+			uniprot id
 		"""
 		return {key.split("|")[1]: value for (key, value) in proteins_dict.items()}
 
 	def fasta2csv(self, is_local_interpro):
+		"""
+		Convert fasta file to csv
+
+		Parameters
+		----------
+		is_local_interpro : bool
+			the input fasta file is created by running local Interproscan (True), otherwise (False)
+
+		Returns
+		-------
+
+		"""
 		print("Creating row for each protein with domain, please wait..")
 		dataset_name = "toxin_dataset.csv"
 		num_all_proteins = 0
@@ -58,14 +100,18 @@ class ToxinExperiment:
 			csv_already_exists = False
 		for fasta_file in listdir(self.fasta_dir_path):
 			short_label = splitext(basename(fasta_file))[0].split(".")[0]
-			with open(join(self.fasta_dir_path, fasta_file),'r') as fasta_data, open(self.domains_path,'r') as domains_data, open(join(self.output_path,dataset_name),'a') as dataset_csv, open(join(self.output_path, "targetp_remaining_seq" + "_" + short_label +".fasta"),'a') as remain_seqs_file:
-
-				proteins_dict = SeqIO.to_dict(SeqIO.parse(fasta_data,"fasta"))
+			with open(join(self.fasta_dir_path, fasta_file), 'r') as fasta_data, open(self.domains_path,
+			                                                                          'r') as domains_data, open(
+					join(self.output_path, dataset_name), 'a') as dataset_csv, open(
+					join(self.output_path, "targetp_remaining_seq" + "_" + short_label + ".fasta"),
+					'a') as remain_seqs_file:
+				proteins_dict = SeqIO.to_dict(SeqIO.parse(fasta_data, "fasta"))
 				num_all_proteins += len(proteins_dict)
 				uniprot2prot = self.extract_uniprot4protein_keys(proteins_dict)
 				writer = csv.writer(dataset_csv, delimiter=',')
-				if not csv_already_exists: #if csv not exists then firstly write header
-					proteins_domains_header = ["uniprot_id", "toxin", "seq", "seq_len", "interpro_domains", "evidence_db_domains"]
+				if not csv_already_exists:  # if csv not exists then firstly write header
+					proteins_domains_header = ["uniprot_id", "toxin", "seq", "seq_len", "interpro_domains",
+					                           "evidence_db_domains"]
 					writer.writerow(proteins_domains_header)
 					csv_already_exists = True
 				batch_num_lines = 10000
@@ -74,7 +120,6 @@ class ToxinExperiment:
 					for line in batch:
 						line_split = line.strip().split("\t")
 						assert len(line_split) == 3, "AssertionError: {} does not have 3 tabs.".format(line)
-						#uniprot_id = line_split[0].strip(";")#remove ending ;
 						uniprot_id = line_split[0]
 						if uniprot_id == "uniprot_id":
 							print("Skipping first line")
@@ -82,19 +127,21 @@ class ToxinExperiment:
 						if is_local_interpro:
 							uniprot_id = uniprot_id.split("|")[1]
 						if uniprot_id in uniprot2prot:
-							# print("Writing row for {}".format(uniprot_id))
 							interpro_ids = line_split[1]
 							evidence_db_ids = line_split[2]
 							label = self.get_labels(fasta_file)
-							#make the row of the current protein
-							protein_row = [uniprot_id, label, str(uniprot2prot[uniprot_id].seq), len(str(uniprot2prot[uniprot_id].seq)), interpro_ids, evidence_db_ids]
+							# make the row of the current protein
+							protein_row = [uniprot_id, label, str(uniprot2prot[uniprot_id].seq),
+							               len(str(uniprot2prot[uniprot_id].seq)), interpro_ids, evidence_db_ids]
 							writer.writerow(protein_row)
 							num_proteins_with_domains += 1
-							uniprot2prot.pop(uniprot_id) #remove found protein from the dictionary, to keep track of the remaining proteins
+							# remove found protein from the dictionary, to keep track of the remaining proteins
+							uniprot2prot.pop(uniprot_id)
 
-				num_remain_proteins += len(uniprot2prot) #update num of remain proteins
-				SeqIO.write(uniprot2prot.values(), remain_seqs_file, "fasta") #append remaining proteins to fasta
-				print("num of remaining proteins for {} label: {} saved on remaining fasta".format(self.get_labels(fasta_file), len(uniprot2prot)))
+				num_remain_proteins += len(uniprot2prot)  # update num of remain proteins
+				SeqIO.write(uniprot2prot.values(), remain_seqs_file, "fasta")  # append remaining proteins to fasta
+				print("num of remaining proteins for {} label: {} saved on remaining fasta".format(
+					self.get_labels(fasta_file), len(uniprot2prot)))
 		assert num_all_proteins == num_proteins_with_domains + num_remain_proteins, "AssertionError: total num of proteins should be equal to proteins with domains + proteins without domains."
 		print("num of Toxin proteins: {}".format(num_all_proteins))
 		print("num of Toxin proteins with found domains: {}".format(num_proteins_with_domains))

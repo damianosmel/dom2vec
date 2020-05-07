@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class RNN(nn.Module):
 	"""
 	Class to impelement RNN
@@ -58,5 +59,3 @@ class RNN(nn.Module):
 			return self.fc(hidden)
 		else:
 			return self.bn(self.fc(hidden))
-
-		# return self.fc(hidden)

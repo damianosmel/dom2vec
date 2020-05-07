@@ -4,13 +4,15 @@ import torch.nn.functional as F
 """
 ### SeqVecNet ###
 Network that uses SeqVec embeddings to infer
-as in Figure 1 (right) of
-Heinzinger, Michael, et al. "Modeling the Language of Life-Deep Learning Protein Sequences." bioRxiv (2019): 614313.
+as in Figure 5 (right) of
+Heinzinger, Michael, et al. "Modeling the Language of Life-Deep Learning Protein Sequences." 
+link: https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-3220-8.
 """
+
 
 class SeqVecCharNet(nn.Module):
 
-	def __init__(self,vocab_size,embedding_dim,hid_dim,output_dim,dropout,pad_idx):
+	def __init__(self, vocab_size, embedding_dim, hid_dim, output_dim, dropout, pad_idx):
 		super().__init__()
 
 		self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=pad_idx)
@@ -19,15 +21,15 @@ class SeqVecCharNet(nn.Module):
 		self.bn = nn.BatchNorm1d(hid_dim)
 		self.fc2 = nn.Linear(hid_dim, output_dim)
 
-	def forward(self,text):
+	def forward(self, text):
 		# each text instance has a whole protein sequence as word (one word sentence)
 		# text = [seq feature len, batch size]
 		embedded = self.embedding(text)
 
 		# embedded = [sent len, batch_size, emb dim]
-		
+
 		squeezed = embedded.squeeze(0)
-		
+
 		# squeezed = [batch_size, emb dim]
 
 		reduced = self.fc1(squeezed)
@@ -46,4 +48,3 @@ class SeqVecCharNet(nn.Module):
 		# normalized = [batch_size, hid_dim]
 		out = self.fc2(normalized)
 		return out
-

@@ -9,7 +9,9 @@ import numpy as np
 
 
 def batch_iterator(iterator, batch_size):
-	"""Returns lists of length batch_size.
+	"""
+	Groups sequences in batches with specified batch_size.
+
 	This can be used on any iterator, for example to batch up
 	SeqRecord objects from Bio.SeqIO.parse(...), or to batch
 	Alignment objects from Bio.AlignIO.parse(...), or simply
@@ -18,8 +20,17 @@ def batch_iterator(iterator, batch_size):
 	entries from the supplied iterator.  Each list will have
 	batch_size entries, although the final list may be shorter.
 	#Credits: https://biopython.org/wiki/Split_large_file
-	"""
 
+	Parameters
+	----------
+	iterator : list of SeqIO
+		list containing of SeqIO records
+
+	Returns
+	-------
+	list of str
+		list of batches of sequences
+	"""
 	entry = True  # Make sure we loop once
 	while entry:
 		batch = []
@@ -39,11 +50,18 @@ def batch_iterator(iterator, batch_size):
 
 def sec2hour_min_sec(seconds):
 	"""
-	# Convert seconds to hours, minuts and seconds
+	Convert elapsed seconds to hours, minutes and seconds
 	#Credits: https://codereview.stackexchange.com/questions/174796/convert-seconds-to-hours-minutes-seconds-and-pretty-print
 
-	:param seconds: elapsed seconds
-	:return: string with hours, minutes, seconds and microseconds
+	Parameters
+	----------
+	seconds : long int
+		elapsed seconds
+
+	Returns
+	-------
+	str
+		string with converted hours, minutes, seconds and microseconds
 	"""
 	microseconds = int(seconds * 1000000)
 
@@ -57,16 +75,59 @@ def sec2hour_min_sec(seconds):
 		return str(microseconds) + ' microseconds'
 
 
-def create_dir(basePath):
-	makedirs(basePath, exist_ok=True)
+def create_dir(base_path):
+	"""
+	Create directory specified by base path, if does not exist
+
+	Parameters
+	----------
+	base_path : str
+		full path of base directory
+
+	Returns
+	-------
+	None
+	"""
+	makedirs(base_path, exist_ok=True)
 
 
 def get_base_name(file):
+	"""
+	Get file base name
+
+	Parameters
+	----------
+	file : str
+		file name
+
+	Returns
+	-------
+	str
+		file base name
+	"""
 	return splitext(basename(file))[0]
 
 
 def choose_combos(n, r, n_chosen):
+	"""
+	Choose n_chosen combination from (n choose r) total combinations
 	# Credits: https://stackoverflow.com/questions/9874887/calculating-and-putting-all-possibilities-of-36-ncr-10-in-a-list-in-python
+
+	Parameters
+	----------
+	n : int
+		number of total elements (proteins domains)
+	r : int
+		coupling r elements to create a combination
+	n_chosen : int
+		number of chosen combinations
+
+	Returns
+	-------
+	list of int
+		list of chosen combinations
+	"""
+
 	total_combs = int(factorial(n) / (factorial(n - r) * factorial(r)))
 	combos = combinations(range(n), r)
 	chosen_indexes = random.sample(list(range(total_combs)), n_chosen)
@@ -84,15 +145,19 @@ def split_fasta(base_path, base_path_out, fasta_name, split_size):
 	Function to split fasta into sub files each containing up to split_size sequences
 
 	Parameters
-	-----
-	@base_path: str
-	Input base path where fasta with all proteins is located
-	@base_path_out: str
-	Output base path to save sub files
-	@fasta_name: str
-	Name of fasta file with all proteins
-	@split_size: int
-	maximum number of sequences that the subfile can contain
+	----------
+	base_path : str
+		input base path where fasta with all proteins is located
+	base_path_out : str
+		output base path to save sub files
+	fasta_name : str
+		name of fasta file with all proteins
+	split_size : int
+		maximum number of sequences that the subfile can contain
+
+	Returns
+	-------
+	None
 	"""
 	print("Splitting fasta into subfasta files.")
 	fasta_name_prefix = get_base_name(fasta_name)
@@ -105,6 +170,20 @@ def split_fasta(base_path, base_path_out, fasta_name, split_size):
 
 
 def write_random_vectors(emb_path, emb_file):
+	"""
+	Save random vectors to embedding file
+
+	Parameters
+	----------
+	emb_path : str
+		embedding path
+	emb_file: str
+		embedding file name
+
+	Returns
+	-------
+	None
+	"""
 	assert emb_file[-4:] == ".txt", "AssertError: embedding file should be txt file"
 	print("Creating random vectors for {}".format(emb_file))
 	rand_vec_file = get_base_name(emb_file) + "_rand.txt"
@@ -145,6 +224,7 @@ def get_freq_as_keys(freqs_dict):
 			freq2freq_occurence[freq] += 1
 	return freq2freq_occurence
 
+
 def is_interpro_domain(domain):
 	"""
 	Function to check if the input domain is Interpro or GAP or unknown domain (unk)
@@ -156,7 +236,7 @@ def is_interpro_domain(domain):
 
 	Returns
 	-------
-		bool
+	bool
 		True if the domain is an Interpro domain or not
 	"""
 	if domain[0:3] == "IPR" or domain[0:3] == "GAP":
