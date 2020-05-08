@@ -58,12 +58,12 @@ Data and example running experiments for:
 * Domain hierarchy
 
 0. Data acquisition:
-  * For Interpro 75.0 version download the ParentChildTreeFile.txt file
+For Interpro 75.0 version download the ParentChildTreeFile.txt file
 
 1. Parse the parent child relation:
    * Uncomment the domain hierarchy section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
    * Parse parent child using `parse_parent_child_file()`
-   * interpro_parsed_tree.txt will be created; as sample the first 3 Interpro parents of the full parsed tree is saved at [sample file](intrinsic_evaluation/domain_hierarchy/interpro_parsed_tree_sample_3parents.txt)
+   * interpro_parsed_tree.txt will be created; the first 3 Interpro parents of the full parsed tree is saved at [sample file](intrinsic_evaluation/domain_hierarchy/interpro_parsed_tree_sample_3parents.txt)
 
 2. Run evaluation
    * run evaluation with the rest section using the looped `get_nn_calculate_precision_recall_atN()`
