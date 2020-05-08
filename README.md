@@ -27,7 +27,7 @@ For Interpro 75.0 version download the files:
 
 1. Get protein lengths parsing match_complete.xml
 * Change folder/files paths appropriately in [proteinXMLHandler_run.py](code/proteinXMLHandler_run.py)
-* run 'proteinXMLHandler_run.py'
+* run `proteinXMLHandler_run.py`
 * prot_id_len tabular will be created; a sample of the first 100 lines of the full file is saved at [sample file](domain_architecture_creation/prot_id_len_sample_100.tab)
 
 2. 
