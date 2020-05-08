@@ -1,7 +1,18 @@
 # dom2vec: Protein domain embeddings
 Please note: repository in WIP, each folder indicated by WIP will be updated soon.
 
-## Code dependencies - WIP
+## Main dependencies
+Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
+The main dependencies are listed below:
+* Python 3.7.6
+* BioPython 1.74
+* Gensim 3.8.0
+* Pytorch 1.2.0
+* Torchtext 0.4.0
+* Numpy 1.18.1
+* Pandas 1.0.1
+* Scikit-learn 0.22.1
+* Matplotlib 3.1.1
 
 ## Intrinsic evaluation - WIP
 Data and example running experiments for:
