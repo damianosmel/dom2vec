@@ -2,7 +2,7 @@
 Please note: repository in WIP, each folder indicated by WIP will be updated soon.
 
 All protein domains analysis follows the data from [Interpro](https://www.ebi.ac.uk/interpro/) version 75.0.
-All data associated with domains can be downloaded from the ftp site for this version, which can be found at the ftp site for version 75.0 which can be found from [download site](https://www.ebi.ac.uk/interpro/download/).
+All data associated can be found at the ftp site for the version 75.0, accessible from the general [download site](https://www.ebi.ac.uk/interpro/download/).
 
 ## Main dependencies
 Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
