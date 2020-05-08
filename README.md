@@ -1,7 +1,8 @@
 # dom2vec: Protein domain embeddings
 Please note: repository in WIP, each folder indicated by WIP will be updated soon.
-All protein domains analysis follows the data from ["Interpro"](https://www.ebi.ac.uk/interpro/) version 75.0.
-All data associated with domains can be downloaded from the ftp site for this version, which can be found ["interpro/75.0"](ftp://ftp.ebi.ac.uk/pub/databases/interpro/75.0/).
+
+All protein domains analysis follows the data from [Interpro](https://www.ebi.ac.uk/interpro/) version 75.0.
+All data associated with domains can be downloaded from the ftp site for this version, which can be found [ftp_site](ftp://ftp.ebi.ac.uk/pub/databases/interpro/75.0/).
 
 ## Main dependencies
 Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
@@ -19,14 +20,15 @@ The main dependencies are listed below:
 
 ## Build domain architecture
 0. Data acquisition
+
 For Interpro 75.0 version download the files:
 * match_complete.xml.gz
 * protein2ipr.dat.gz
 
 1. Get protein lengths parsing match_complete.xml
-* Change folder/files paths appropriately in 'code/proteinXMLHandler_run.py'
-* run 'code/proteinXMLHandler_run.py'
-* prot_id_len tabular will be created; a sample of the first 100 lines of the full file is saved at [](domain_architecture_creation/prot_id_len_sample_100.tab)
+* Change folder/files paths appropriately in [proteinXMLHandler_run.py](code/proteinXMLHandler_run.py)
+* run 'proteinXMLHandler_run.py'
+* prot_id_len tabular will be created; a sample of the first 100 lines of the full file is saved at [sample file](domain_architecture_creation/prot_id_len_sample_100.tab)
 
 2. 
 
