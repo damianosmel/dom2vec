@@ -4,18 +4,28 @@ from os.path import join
 from gensim.models import KeyedVectors
 import sklearn.utils.validation as sk_validation
 from sklearn import neighbors
-from sklearn.decomposition import PCA
-from sklearn import metrics
 from sklearn.model_selection import StratifiedKFold
-
-"""
-Class to evaluate word embeddings using wordnet topics
-"""
 
 
 class WordTopicsEvaluate:
-
+	"""
+	Class to evaluate word embeddings using wordnet topics
+	"""
 	def __init__(self, data_path, word_topics_file):
+		"""
+		WordTopicsEvaluate class init
+
+		Parameters
+		----------
+		data_path : str
+			data full path
+		word_topics_file : str
+			mapping of word to topics file name
+
+		Returns
+		-------
+		None
+		"""
 		self.data_path = data_path
 		self.word_topics_file = word_topics_file
 		self.words_labels = None
@@ -25,7 +35,20 @@ class WordTopicsEvaluate:
 
 	@staticmethod
 	def get_basic_domain(specific_domain):
-		# get the basic domain from WordNet domain file: wn-domains-3.2/WDH-to-DDC-map.pdf
+		"""
+		Get the basic domain for given specific domain
+		from WordNet domain file: wn-domains-3.2/WDH-to-DDC-map.pdf
+
+		Parameters
+		----------
+		specific_domain : str
+			specific domain
+
+		Returns
+		-------
+		str
+			basic domain
+		"""
 		specific_domain = specific_domain.lower()
 		if specific_domain in ["history", "archeology", "heraldry"]:
 			return "history"
@@ -114,20 +137,83 @@ class WordTopicsEvaluate:
 			return specific_domain
 
 	def read_word_topics(self):
+		"""
+		Read word topics csv file
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		None
+		"""
 		# Read dataframe with columns word, topic for all domains
 		self.words_labels = pd.read_csv(join(self.data_path, self.word_topics_file), sep="\t", header=0)
 
 	def load_emb2domains(self, model_file, is_model_bin):
+		"""
+		Load word2vec embeddings
+
+		Parameters
+		----------
+		model_file : str
+			embedding full path name
+		is_model_bin : bool
+			model is saved in binary format (True), otherwise (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("Load embeddings")
 		self.emb_model = KeyedVectors.load_word2vec_format(model_file, binary=is_model_bin)
 
 	def get_emb_num_dim(self):
+		"""
+		Get embedding dimension number
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		int
+			embeddings dimension
+		"""
 		return self.emb_model[self.emb_model.index2entity[0]].shape[0]
 
 	def get_x(self):
+		"""
+		Get embedding vector for each word in word topics csv
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		pandas.DataFrame
+			embedding vector for each word
+		"""
 		return self.words_labels[["x_" + str(i) for i in range(self.get_emb_num_dim())]]
 
 	def get_topic_id(self, words, remove_multilabel, use_basic_label):
+		"""
+		Get topic id
+
+		Parameters
+		----------
+		words : pandas.DataFrame
+			words to topics tabular data set
+		remove_multilabel : bool
+			word with more than label (True), otherwise (False)
+		use_basic_label : bool
+			use basic topic as label (True), otherwise use specific topic (False)
+
+		Returns
+		-------
+		pandas.DataFrame
+			updated words to topics tabular data set
+		"""
 		label = str(words["topics"])  # convert to string
 		uniq_topics_id = set()
 		uniq_topics = set()
@@ -155,6 +241,20 @@ class WordTopicsEvaluate:
 		return words
 
 	def get_label_names(self, remove_multilabeled, use_basic_label):
+		"""
+		Get label names
+
+		Parameters
+		----------
+		remove_multilabeled : bool
+			word with more than label (True), otherwise (False)
+		use_basic_label : bool
+			use basic topic as label (True), otherwise use specific topic (False)
+
+		Returns
+		-------
+		None
+		"""
 		# read word topics file
 		# then convert the labels from categorical to number
 		self.read_word_topics()
@@ -162,6 +262,18 @@ class WordTopicsEvaluate:
 		                                            use_basic_label=use_basic_label, axis=1)
 
 	def calc_label_stats(self, words):
+		"""
+		Calculate label statistics
+
+		Parameters
+		----------
+		words : pandas.DataFrame
+			words to topics tabular data set
+
+		Returns
+		-------
+		None
+		"""
 		col = str(words["topics_id"])
 		if col == "unknown":
 			self.counter_multilabel["no_label"] += 1
@@ -171,6 +283,16 @@ class WordTopicsEvaluate:
 			self.counter_multilabel["multi_label"] += 1
 
 	def compute_label_stats(self):
+		"""
+		Calculate and print label statistics
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		None
+		"""
 		print("=== Labels stats ===")
 		print(self.words_labels.shape)
 		self.words_labels.apply(self.calc_label_stats, axis=1)
@@ -180,6 +302,22 @@ class WordTopicsEvaluate:
 		print("===")
 
 	def words2vectors(self, words_topics, create_rand_vec):
+		"""
+		Convert words to embedding vectors
+
+		Parameters
+		----------
+		words_topics : pandas.DataFrame
+			words to topics tabular data set
+
+		create_rand_vec : bool
+			create random vector for word (True), get pre-trained embedding vector for word (False)
+
+		Returns
+		-------
+		np.array
+			embedding vector
+		"""
 		if create_rand_vec:
 			return np.random.random(self.get_emb_num_dim())
 		else:
@@ -190,6 +328,18 @@ class WordTopicsEvaluate:
 				return [0] * self.get_emb_num_dim()
 
 	def create_Xy(self, use_rand_vec):
+		"""
+		Create Xy from starting word to topics csv data
+
+		Parameters
+		----------
+		use_rand_vec : bool
+			create random vector for words (True), get pre-trained embedding vector for word (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("=== Create Xy ===")
 		if use_rand_vec:
 			print("X will be random vectors")
@@ -203,6 +353,16 @@ class WordTopicsEvaluate:
 		self.words_labels.drop(columns=["vector"], inplace=True)
 
 	def print_words_labels(self):
+		"""
+		Print word labels
+
+		Parameters
+		----------
+
+		Returns
+		-------
+		None
+		"""
 		print("=== words_yX ===")
 		print(self.words_labels.head())
 		print("Topics counts saved at {}".format(join(self.data_path, "topics_counts.csv")))
@@ -211,9 +371,27 @@ class WordTopicsEvaluate:
 		print("=== ===")
 
 	def convert_word2Xy(self, model_file, is_model_bin, use_basic_label, use_rand_vec):
+		"""
+		Convert word to topics data set to include embedding vector and processed label
+
+		Parameters
+		----------
+		model_file : str
+			embedding model file name
+		is_model_bin : bool
+			is embedding model in binary format (True), otherwise (False)
+		use_basic_label : bool
+			use basic concept as label (True), use specific concept as label (False)
+		use_rand_vec : bool
+			use random vectors as word vectors (True), use pre-trained vectors as word vectors (False)
+
+		Returns
+		-------
+		None
+		"""
 		# preprocess steps
 		print("Convert word_topics.tab -> (X,y)")
-		if (use_basic_label):
+		if use_basic_label:
 			print("Get basic labels from given ones")
 		remove_multilabeled = True
 
@@ -223,7 +401,6 @@ class WordTopicsEvaluate:
 		# load word embeddings
 		self.load_emb2domains(model_file, is_model_bin)
 		self.create_Xy(use_rand_vec)
-		# print(self.words_labels.head())
 		self.words_labels.sort_values(by="topics_id", inplace=True)
 		self.words_labels = self.words_labels.astype({"word": str, "topics": str, "topics_id": int})
 
@@ -233,6 +410,18 @@ class WordTopicsEvaluate:
 		sk_validation._assert_all_finite(self.get_x().values)
 
 	def run_NN(self, are_dim_reduced):
+		"""
+		Run k-NN to evaluate word2vec model for wordNet domain labels
+
+		Parameters
+		----------
+		are_dim_reduced : bool
+			embedding dimensions are reduced (True), otherwise (False)
+
+		Returns
+		-------
+		None
+		"""
 		print("Run kNN")
 		if are_dim_reduced:
 			x_min, x_max = np.min(self.X_low, 0), np.max(self.X_low, 0)
@@ -251,22 +440,18 @@ class WordTopicsEvaluate:
 
 		for train_index, test_index in iter(skf.split(X, y)):
 			fold_idx += 1
-			# print("=== Fold {} ===".format(fold_idx))
 			X_train = X[train_index]
 			y_train = y[train_index]
 			X_test = X[test_index]
 			y_test = y[test_index]
-			n_classes = len(np.unique(y_train))
+
 			estimators = {nn_num: neighbors.KNeighborsClassifier(nn_num, weights='distance')
 			              for nn_num in [2, 5, 20, 40]}
-			n_estimators = len(estimators)
 			for index, (nn_num, estimator) in enumerate(estimators.items()):
 				estimator.fit(X_train, y_train)
 				y_test_pred = estimator.predict(X_test)
 				test_accuracy = np.mean(y_test_pred.ravel() == y_test.ravel()) * 100
 				test_acc_models[nn_num].append(test_accuracy)
-		# print("k-NN with k={} test accuracy: {:.3f}".format(nn_num, test_accuracy))
-		# print("---")
 
 		for nn_num in [2, 5, 20, 40]:
 			print("=== {}-NN ===".format(nn_num))
@@ -275,6 +460,26 @@ class WordTopicsEvaluate:
 			print("avg test acc: {}".format(sum(test_acc_models[nn_num]) / float(len(test_acc_models[nn_num]))))
 
 	def run(self, model_file, is_model_bin, use_basic_label, use_rand_vec, classifier_name):
+		"""
+		Run all steps of evaluation
+
+		Parameters
+		----------
+		model_file : str
+			embedding model full path
+		is_model_bin : bool
+			model is saved in binary format (True), otherwise (False)
+		use_basic_label : bool
+			use basic concept as label (True), otherwise use specific concept as label (False)
+		use_rand_vec : bool
+			use random vectors for words (True), use pre-trained embedding vectors for words (False)
+		classifier_name : str
+			name of classifier to be used
+
+		Returns
+		-------
+		None
+		"""
 		self.convert_word2Xy(model_file, is_model_bin, use_basic_label, use_rand_vec)
 		are_dim_reduced = False
 
