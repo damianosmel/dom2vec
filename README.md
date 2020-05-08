@@ -34,12 +34,12 @@ The main dependencies are listed below:
 * Select the output domain annotation **type**: overlap, non overlapping or non redundant. Then set if *GAP* domain is also added to annotations. 
   Change folder/files paths appropropriately and uncomment the first section in [main.py](code/main.py) 
 * Parse domain hits per protein running `main.py`
-* id_domains_type.tab file will be created; a sample of the first 100 lines of the full file, for non overlapping with *GAP*, is saved at [sample](domain_architecture_creation/id_domains_no_overlap_gap_sample_100.tab)
+* id_domains_type.tab file will be created; a sample of the first 100 lines of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/id_domains_no_overlap_gap_sample_100.tab)
 
 3. Get domain architecture corpus
 * Change folder/files paths appropriately and uncomment the first section in [main.py](code/main.py)
 * run `main.py`
-* domains_corpus_type.txt file will be created; sample of the first 100 line of the full file, for non overlapping with *GAP*, is saved at [sample](domain_architecture_creation/domains_corpus_no_overlap_gap_sample_100.txt)
+* domains_corpus_type.txt file will be created; sample of the first 100 line of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/domains_corpus_no_overlap_gap_sample_100.txt)
 
 ## Intrinsic evaluation - WIP
 Data and example running experiments for:
