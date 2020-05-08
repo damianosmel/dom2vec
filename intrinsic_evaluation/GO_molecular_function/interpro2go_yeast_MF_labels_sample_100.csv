@@ -1,0 +1,100 @@
+interpro_ids,GO_terms,short_parent,one_level_parents
+IPR000009,GO:0019888,molecular function regulator,molecular function regulator
+IPR000011,GO:0008641,catalytic activity,catalytic activity
+IPR000023,GO:0003872,catalytic activity,catalytic activity
+IPR000035,GO:0003905,catalytic activity,catalytic activity
+IPR000039,GO:0003735,structural molecule activity,structural molecule activity
+IPR000048,GO:0005515,binding,binding
+IPR000049,GO:0009055,catalytic activity,catalytic activity
+IPR000054,GO:0003735,structural molecule activity,structural molecule activity
+IPR000056,GO:0016857,catalytic activity,catalytic activity
+IPR000058,GO:0008270,binding,binding
+IPR000059,GO:0000287 GO:0016818 GO:0030145,binding;catalytic activity,binding;catalytic activity
+IPR000061,GO:0003723,binding,binding
+IPR000077,GO:0003735,structural molecule activity,structural molecule activity
+IPR000086,GO:0016787,catalytic activity,catalytic activity
+IPR000101,GO:0036374,catalytic activity,catalytic activity
+IPR000109,GO:0022857,transporter activity,transporter activity
+IPR000111,GO:0004553,catalytic activity,catalytic activity
+IPR000114,GO:0003735 GO:0019843,binding;structural molecule activity,binding;structural molecule activity
+IPR000115,GO:0004637,catalytic activity,catalytic activity
+IPR000120,GO:0004040,catalytic activity,catalytic activity
+IPR000131,GO:0046933,catalytic activity,transporter activity;catalytic activity
+IPR000132,GO:0016810,catalytic activity,catalytic activity
+IPR000133,GO:0046923,binding,binding
+IPR000146,GO:0016791,catalytic activity,catalytic activity
+IPR000164,GO:0003677,binding,binding
+IPR000165,GO:0004339,catalytic activity,catalytic activity
+IPR000178,GO:0003743 GO:0005525,binding;translation regulator activity,binding;translation regulator activity
+IPR000182,GO:0008080,catalytic activity,catalytic activity
+IPR000183,GO:0003824,catalytic activity,catalytic activity
+IPR000194,GO:0005524,binding,binding
+IPR000196,GO:0003735,structural molecule activity,structural molecule activity
+IPR000206,GO:0003735,structural molecule activity,structural molecule activity
+IPR000209,GO:0004252,catalytic activity,catalytic activity
+IPR000210,GO:0005515,binding,binding
+IPR000212,GO:0003677 GO:0003678 GO:0005524,binding;catalytic activity,binding;catalytic activity
+IPR000218,GO:0003735,structural molecule activity,structural molecule activity
+IPR000219,GO:0005089,molecular function regulator,binding;molecular function regulator
+IPR000222,GO:0043169,binding,binding
+IPR000223,GO:0008236,catalytic activity,catalytic activity
+IPR000225,GO:0005515,binding,binding
+IPR000231,GO:0003723 GO:0003735,binding;structural molecule activity,binding;structural molecule activity
+IPR000232,GO:0003700 GO:0043565,binding;transcription regulator activity,binding;transcription regulator activity
+IPR000242,GO:0004725,catalytic activity,catalytic activity
+IPR000243,GO:0004175,catalytic activity,catalytic activity
+IPR000245,GO:0015078,transporter activity,transporter activity
+IPR000253,GO:0005515,binding,binding
+IPR000257,GO:0004853,catalytic activity,catalytic activity
+IPR000261,GO:0005515,binding,binding
+IPR000262,GO:0016491,catalytic activity,catalytic activity
+IPR000266,GO:0003735,structural molecule activity,structural molecule activity
+IPR000268,GO:0003677 GO:0003899,binding;catalytic activity,binding;catalytic activity
+IPR000270,GO:0005515,binding,binding
+IPR000271,GO:0003735,structural molecule activity,structural molecule activity
+IPR000277,GO:0030170,binding,binding
+IPR000289,GO:0003735,structural molecule activity,structural molecule activity
+IPR000292,GO:0022857,transporter activity,transporter activity
+IPR000297,GO:0003755,catalytic activity,catalytic activity
+IPR000298,GO:0015002,catalytic activity,catalytic activity
+IPR000304,GO:0004735,catalytic activity,catalytic activity
+IPR000306,GO:0046872,binding,binding
+IPR000307,GO:0003735,structural molecule activity,structural molecule activity
+IPR000308,GO:0019904,binding,binding
+IPR000312,GO:0016757,catalytic activity,catalytic activity
+IPR000319,GO:0004073 GO:0050661,binding;catalytic activity,binding;catalytic activity
+IPR000322,GO:0004553,catalytic activity,catalytic activity
+IPR000330,GO:0005524,binding,binding
+IPR000340,GO:0008138,catalytic activity,catalytic activity
+IPR000352,GO:0003747,translation regulator activity,binding;translation regulator activity
+IPR000357,GO:0005515,binding,binding
+IPR000358,GO:0004748 GO:0005515,binding;catalytic activity,binding;catalytic activity
+IPR000366,GO:0004932,molecular transducer activity,molecular transducer activity
+IPR000374,GO:0016772,catalytic activity,catalytic activity
+IPR000375,GO:0005525,binding,binding
+IPR000380,GO:0003677 GO:0003917,binding;catalytic activity,binding;catalytic activity
+IPR000387,GO:0016791,catalytic activity,catalytic activity
+IPR000396,GO:0004115,catalytic activity,catalytic activity
+IPR000398,GO:0004799,catalytic activity,catalytic activity
+IPR000399,GO:0000287 GO:0030976,binding,binding
+IPR000406,GO:0005094,molecular function regulator,molecular function regulator
+IPR000407,GO:0016787,catalytic activity,catalytic activity
+IPR000415,GO:0016491,catalytic activity,catalytic activity
+IPR000417,GO:0004417,catalytic activity,catalytic activity
+IPR000420,GO:0005199,structural molecule activity,structural molecule activity
+IPR000422,GO:0008686,catalytic activity,catalytic activity
+IPR000424,GO:0003697,binding,binding
+IPR000425,GO:0015267,transporter activity,transporter activity
+IPR000426,GO:0004175,catalytic activity,catalytic activity
+IPR000432,GO:0005524 GO:0030983,binding,binding
+IPR000433,GO:0008270,binding,binding
+IPR000439,GO:0003735,structural molecule activity,structural molecule activity
+IPR000445,GO:0003677,binding,binding
+IPR000447,GO:0004368,catalytic activity,catalytic activity
+IPR000453,GO:0004107,catalytic activity,catalytic activity
+IPR000454,GO:0015078,transporter activity,transporter activity
+IPR000456,GO:0003735,structural molecule activity,structural molecule activity
+IPR000462,GO:0016780,catalytic activity,catalytic activity
+IPR000465,GO:0003684,binding,binding
+IPR000467,GO:0003676,binding,binding
+IPR000473,GO:0003735,structural molecule activity,structural molecule activity

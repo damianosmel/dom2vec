@@ -77,7 +77,7 @@ Data and example running experiments for:
 1. Parse interpro.xml:
    * uncomment the EC & SCOPe section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
    * parse xml to get available SCOPe and EC labels per domain using `parse_and_save_EC_SCOP()`
-   * interpro2EC_SCOPe.tab will be created; a sample of the first 100 lines of the full file is saved at [sample_file](intrinsic_evaluation/domain_hierarchy/SCOPe_EC/interpro2EC_SCOPe_sample_100.tab)
+   * interpro2EC_SCOPe.tab will be created; a sample of the first 100 lines of the full file is saved at [sample file](intrinsic_evaluation/SCOPe_EC/interpro2EC_SCOPe_sample_100.tab)
 
 2. Run evaluation
    * initialize `EC_SCOP_Evaluate()` class for evaluation using EC or SCOPe
@@ -85,7 +85,21 @@ Data and example running experiments for:
    * average test accuracy over 5-fold cross validation will be printed; example values can be found in Tables 2 and 3 in the below bioRxiv manuscript
 
 * GO molecular function
+0. Data acquisition:
+   * For Interpro 75.0 version, download the interpro2go file and add the suffix .txt
 
+For each **organism**: malaria, ecolik12, yeast, human follow the steps:
+1. Parse interpro2go.txt:
+   * uncomment the GOEvaluate section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
+   * parse the txt file using `convert_go_labels()` producing:
+   * interpro2go_organism_MF.tab containing unprocessed available GO MF labels per domain; a sample of the first 100 lines of the full file for *yeast* is saved at [sample file](intrinsic_evaluation/GO_molecular_function/interpro2go_yeast_MF_sample_100.tab)
+   * interpro2go_yeast_MF_labels.csv containing GO MF labels after abstracting them; a sample of the first 100 lines of the full file for *yeast* is saved at [sample file](intrinsic_evaluation/GO_molecular_function/interpro2go_yeast_MF_labels_sample_100.csv)
+
+2. Run evaluation
+   * initialize `GOEvaluate()` class for evaluation in selected organism
+   * run evaluation with the rest section using the looped `run_classification()`
+   * average test accuracy over 5-fold cross validation will be printed; example can be found in Table 4 in the below bioRxiv manuscript
+ 
 ## Downstream evaluation
 Data and example running cross validation and performance experiments for three data sets:
 * TargetP
