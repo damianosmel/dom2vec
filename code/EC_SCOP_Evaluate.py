@@ -230,7 +230,6 @@ class EC_SCOP_Evaluate:
 		label = str(domains["SCOPs"])
 		uniq_SCOP = set()
 		if label == "nan":
-			# print("Nan scope")
 			uniq_SCOP.add("unknown")
 		else:
 			multilabel = label.split(" ")
@@ -396,7 +395,6 @@ class EC_SCOP_Evaluate:
 
 		"""
 		y_pred = None
-		num_uniq_classes = 0
 		if self.use_ec:
 			num_uniq_classes = len(self.ec_num2name)
 		else:
@@ -445,7 +443,6 @@ class EC_SCOP_Evaluate:
 		# compute contingency matrix (also called confusion matrix)
 		contingency_matrix = metrics.cluster.contingency_matrix(y_true, y_pred)
 		print(contingency_matrix)
-		# return purity
 		return np.sum(np.amax(contingency_matrix, axis=0)) / np.sum(contingency_matrix)
 
 	def get_x(self):
@@ -495,13 +492,10 @@ class EC_SCOP_Evaluate:
 		skf = StratifiedKFold(n_splits=5, random_state=self.random_state)
 
 		fold_idx = 0
-		# train_acc_models = {2: [], 5: [], 10: [], 20: []}
-		# test_acc_models = {2: [], 5: [], 10: [], 20: [], 40: []} #for k-NN we can only assess the test acc
 		test_acc_models = {2: [], 5: [], 20: [], 40: []}
 
 		for train_index, test_index in iter(skf.split(X, y)):
 			fold_idx += 1
-			# print("=== Fold {} ===".format(fold_idx))
 			X_train = X[train_index]
 			y_train = y[train_index] - 1
 			X_test = X[test_index]
