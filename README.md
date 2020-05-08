@@ -3,6 +3,11 @@ Please note: repository in WIP, each folder indicated by WIP will be updated soo
 
 All protein domains analysis follows the data from [Interpro](https://www.ebi.ac.uk/interpro/) version 75.0.
 All data associated can be found at the ftp site for the version 75.0, accessible from the general [download site](https://www.ebi.ac.uk/interpro/download/).
+All analysis is decipted in the following image:
+
+## Summary of approach
+![Summary of approach](dom2vec_approach.png "Summary of approach")
+Summary of the approach/code divided in four parts, building two forms of domains architecture, training domain embeddings, performing intrinsic and extrinsic evaluation of embeddings.
 
 ## Main dependencies
 Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
@@ -34,7 +39,7 @@ The main dependencies are listed below:
 
 2. Get domains and evidence db id per protein:
 * select the output domain annotation **type**: overlap, non overlapping or non redundant. Then set if *GAP* domain is also added to annotations. 
-  Change folder/files paths appropropriately and uncomment the first section in [main.py](code/main.py) 
+  Change folder/files paths appropriately and uncomment the first section in [main.py](code/main.py) 
 * parse domain hits per protein running `main.py`
 * id_domains_type.tab file will be created; a sample of the first 100 lines of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/id_domains_no_overlap_gap_sample_100.tab)
 
@@ -53,7 +58,7 @@ The main dependencies are listed below:
 * run `run_embs.sh`
 * word2vec embedding standard txt file(s) will be created
 
-## Intrinsic evaluation - WIP
+## Intrinsic evaluation
 Data and example running experiments for:
 * Domain hierarchy
 

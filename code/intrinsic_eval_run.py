@@ -120,7 +120,6 @@ species_name = "yeast"
 # species_domains = "interpro_dom_malaria.txt"
 # species_name = "malaria"
 prepareInterPro2GO = ParseInterPro2GO(data_path, interpro2go, species_domains, species_name)
-# prepareInterPro2GO.run(keep_only_MF=True, num_comb=50000) #place the species domains file in the data_path and let it run..
 prepareInterPro2GO.convert_go_labels(keep_only_MF=True)#get first level GO annotations as labels
 """
 
