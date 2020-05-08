@@ -82,7 +82,7 @@ Data and example running experiments for:
 2. Run evaluation
    * initialize `EC_SCOP_Evaluate()` class for evaluation using EC or SCOPe
    * run evaluation with the rest section using the looped `run_classification()`
-   * average test accuracy over 5-fold cross validation will be printed; example values can be found in Tables 2,3 in the below bioRxiv manuscript
+   * average test accuracy over 5-fold cross validation will be printed; example values can be found in Tables 2 and 3 in the below bioRxiv manuscript
 
 * GO molecular function
 
