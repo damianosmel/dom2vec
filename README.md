@@ -17,6 +17,8 @@ The main dependencies are listed below:
 * Pandas 1.0.1
 * Scikit-learn 0.22.1
 * Matplotlib 3.1.1
+* Intervaltree 3.0.2
+* Treelib 1.5.5
 
 ## Build protein domain architectures
 0. Data acquisition:
@@ -54,7 +56,21 @@ The main dependencies are listed below:
 ## Intrinsic evaluation - WIP
 Data and example running experiments for:
 * Domain hierarchy
+  0. Data acquisition:
+     For Interpro 75.0 version download the ParentChildTreeFile.txt file
+
+  1. Parse the parent child relation:
+   * Uncomment the domain hierarchy section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
+   * Parse parent child using `parse_parent_child_file()`
+   * interpro_parsed_tree.txt will be created; as sample the first 3 Interpro parents of the full parsed tree is saved at [sample file](intrinsic_evaluation/domain_hierarchy/interpro_parsed_tree_sample_3parents.txt)
+
+  2. Run evaluation
+   * run evaluation with the rest section using the looped `get_nn_calculate_precision_recall_atN()`
+   * the outputs will be: average recall value, recall histogram png, diagnostic histogram for parents with recall 0 (if parameter is selected)
+   * example outputs can be found respectively at table 1, Figure S1 and S2 in the below bioRxiv manuscript
+
 * SCOPe and EC
+
 * GO molecular function
 
 ## Downstream evaluation
