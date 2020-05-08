@@ -28,18 +28,18 @@ The main dependencies are listed below:
 * protein2ipr.dat.gz
 
 1. Get protein lengths parsing match_complete.xml:
-* Change folder/files paths appropriately in [proteinXMLHandler_run.py](code/proteinXMLHandler_run.py)
+* change folder/files paths appropriately in [proteinXMLHandler_run.py](code/proteinXMLHandler_run.py)
 * run `proteinXMLHandler_run.py`
 * prot_id_len tabular file will be created; a sample of the first 100 lines of the full file is saved at [sample file](domain_architecture_creation/prot_id_len_sample_100.tab)
 
 2. Get domains and evidence db id per protein:
-* Select the output domain annotation **type**: overlap, non overlapping or non redundant. Then set if *GAP* domain is also added to annotations. 
+* select the output domain annotation **type**: overlap, non overlapping or non redundant. Then set if *GAP* domain is also added to annotations. 
   Change folder/files paths appropropriately and uncomment the first section in [main.py](code/main.py) 
-* Parse domain hits per protein running `main.py`
+* parse domain hits per protein running `main.py`
 * id_domains_type.tab file will be created; a sample of the first 100 lines of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/id_domains_no_overlap_gap_sample_100.tab)
 
 3. Get domain architecture corpus:
-* Change folder/files paths appropriately and uncomment the first section in [main.py](code/main.py)
+* change folder/files paths appropriately and uncomment the first section in [main.py](code/main.py)
 * run `main.py`
 * domains_corpus_type.txt file will be created; sample of the first 100 line of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/domains_corpus_no_overlap_gap_sample_100.txt)
 
@@ -48,8 +48,8 @@ The main dependencies are listed below:
 * the domains_corpus_type.txt from last step
 
 1. Train word2vec model from domain architectures corpus:
-* Change folder/files paths appropriately in [word2vec_run.py](code/word2vec_run.py)
-* Change the paths and the training parameters in the provided bash script [run_embs.sh](domain_embeddings_training/run_embs.sh)
+* change folder/files paths appropriately in [word2vec_run.py](code/word2vec_run.py)
+* change the paths and the training parameters in the provided bash script [run_embs.sh](domain_embeddings_training/run_embs.sh)
 * run `run_embs.sh`
 * word2vec embedding standard txt file(s) will be created
 
@@ -58,11 +58,11 @@ Data and example running experiments for:
 * Domain hierarchy
 
 0. Data acquisition:
-   * For Interpro 75.0 version download the ParentChildTreeFile.txt file
+   * For Interpro 75.0 version, download the ParentChildTreeFile.txt file
 
 1. Parse the parent child relation:
-   * Uncomment the domain hierarchy section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
-   * Parse parent child using `parse_parent_child_file()`
+   * uncomment the domain hierarchy section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
+   * parse parent child using `parse_parent_child_file()`
    * interpro_parsed_tree.txt will be created; the first 3 Interpro parents of the full parsed tree is saved at [sample file](intrinsic_evaluation/domain_hierarchy/interpro_parsed_tree_sample_3parents.txt)
 
 2. Run evaluation
@@ -71,6 +71,18 @@ Data and example running experiments for:
    * example outputs can be found respectively at table 1, Figure S1 and S2 in the below bioRxiv manuscript
 
 * SCOPe and EC
+0. Data acquisition:
+   * For Interpro 75.0 version, download and decompress interpro.xml.gz file
+
+1. Parse interpro.xml:
+   * uncomment the EC & SCOPe section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
+   * parse xml to get available SCOPe and EC labels per domain using `parse_and_save_EC_SCOP()`
+   * interpro2EC_SCOPe.tab will be created; a sample of the first 100 lines of the full file is saved at [sample_file](intrinsic_evaluation/domain_hierarchy/SCOPe_EC/interpro2EC_SCOPe_sample_100.tab)
+
+2. Run evaluation
+   * initialize `EC_SCOP_Evaluate()` class for evaluation using EC or SCOPe
+   * run evaluation with the rest section using the looped `run_classification()`
+   * average test accuracy over 5-fold cross validation will be printed; example values can be found in Tables 2,3 in the below bioRxiv manuscript
 
 * GO molecular function
 
