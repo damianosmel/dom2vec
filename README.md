@@ -21,7 +21,7 @@ The main dependencies are listed below:
 ## Build domain architecture
 0. Data acquisition
 
-For Interpro 75.0 version download the files:
+   For Interpro 75.0 version download the files:
 * match_complete.xml.gz
 * protein2ipr.dat.gz
 
