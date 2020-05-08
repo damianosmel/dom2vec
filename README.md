@@ -25,18 +25,18 @@ The main dependencies are listed below:
 * match_complete.xml.gz
 * protein2ipr.dat.gz
 
-1. Get protein lengths parsing match_complete.xml
+1. Get protein lengths parsing match_complete.xml:
 * Change folder/files paths appropriately in [proteinXMLHandler_run.py](code/proteinXMLHandler_run.py)
 * run `proteinXMLHandler_run.py`
 * prot_id_len tabular file will be created; a sample of the first 100 lines of the full file is saved at [sample file](domain_architecture_creation/prot_id_len_sample_100.tab)
 
-2. Get domains and evidence db id per protein
+2. Get domains and evidence db id per protein:
 * Select the output domain annotation **type**: overlap, non overlapping or non redundant. Then set if *GAP* domain is also added to annotations. 
   Change folder/files paths appropropriately and uncomment the first section in [main.py](code/main.py) 
 * Parse domain hits per protein running `main.py`
 * id_domains_type.tab file will be created; a sample of the first 100 lines of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/id_domains_no_overlap_gap_sample_100.tab)
 
-3. Get domain architecture corpus
+3. Get domain architecture corpus:
 * Change folder/files paths appropriately and uncomment the first section in [main.py](code/main.py)
 * run `main.py`
 * domains_corpus_type.txt file will be created; sample of the first 100 line of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/domains_corpus_no_overlap_gap_sample_100.txt)
