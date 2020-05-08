@@ -3,6 +3,7 @@ Please note: repository in WIP, each folder indicated by WIP will be updated soo
 
 ## Main dependencies
 Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
+
 The main dependencies are listed below:
 * Python 3.7.6
 * BioPython 1.74
