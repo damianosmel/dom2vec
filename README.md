@@ -58,7 +58,7 @@ Data and example running experiments for:
 * Domain hierarchy
 
 0. Data acquisition:
-For Interpro 75.0 version download the ParentChildTreeFile.txt file
+   * For Interpro 75.0 version download the ParentChildTreeFile.txt file
 
 1. Parse the parent child relation:
    * Uncomment the domain hierarchy section in [intrinsic_eval_run.py](code/intrinsic_eval_run.py)
