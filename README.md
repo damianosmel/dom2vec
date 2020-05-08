@@ -56,6 +56,7 @@ The main dependencies are listed below:
 ## Intrinsic evaluation - WIP
 Data and example running experiments for:
 * Domain hierarchy
+
   0. Data acquisition:
      For Interpro 75.0 version download the ParentChildTreeFile.txt file
 
