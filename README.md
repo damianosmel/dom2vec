@@ -18,8 +18,8 @@ The main dependencies are listed below:
 * Scikit-learn 0.22.1
 * Matplotlib 3.1.1
 
-## Build domain architecture
-0. Data acquisition
+## Build protein domain architectures
+0. Data acquisition:
 
    For Interpro 75.0 version download the files:
 * match_complete.xml.gz
@@ -41,6 +41,16 @@ The main dependencies are listed below:
 * run `main.py`
 * domains_corpus_type.txt file will be created; sample of the first 100 line of the full file, for non overlapping with *GAP*, is saved at [sample file](domain_architecture_creation/domains_corpus_no_overlap_gap_sample_100.txt)
 
+## Train protein domain embeddings
+0. Needed data:
+* the domains_corpus_type.txt from last step
+
+1. Train word2vec model from domain architectures corpus:
+* Change folder/files paths appropriately in [word2vec_run.py](code/word2vec_run.py)
+* Change the paths and the training parameters in the provided bash script [run_embs.sh](domain_embeddings_training/run_embs.sh)
+* run `run_embs.sh`
+* word2vec embedding standard txt file(s) will be created
+
 ## Intrinsic evaluation - WIP
 Data and example running experiments for:
 * Domain hierarchy
@@ -56,4 +66,6 @@ Data and example running cross validation and performance experiments for three 
 ## Pretrained dom2vec - WIP
 
 ## Research paper
-This repository is the implentation of the research paper: ["dom2vec: Unsupervised protein domain embeddings capture domains structure and function providing data-driven insights into collocations in domain architectures"](https://www.biorxiv.org/content/10.1101/2020.03.17.995498v2), currently in bioRxiv!
+This repository is the implementation of the bioRxiv research paper:
+
+["dom2vec: Unsupervised protein domain embeddings capture domains structure and function providing data-driven insights into collocations in domain architectures"](https://www.biorxiv.org/content/10.1101/2020.03.17.995498v2)
