@@ -103,7 +103,7 @@ class ToxinExperiment:
 			with open(join(self.fasta_dir_path, fasta_file), 'r') as fasta_data, open(self.domains_path,
 			                                                                          'r') as domains_data, open(
 					join(self.output_path, dataset_name), 'a') as dataset_csv, open(
-					join(self.output_path, "targetp_remaining_seq" + "_" + short_label + ".fasta"),
+					join(self.output_path, "toxin_remaining_seq" + "_" + short_label + ".fasta"),
 					'a') as remain_seqs_file:
 				proteins_dict = SeqIO.to_dict(SeqIO.parse(fasta_data, "fasta"))
 				num_all_proteins += len(proteins_dict)
