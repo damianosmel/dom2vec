@@ -129,7 +129,7 @@ Data and example code to run cross validation and performance experiments for th
 are found at the downstream evaluation [folder](https://github.com/damianosmel/dom2vec/tree/master/downstream_evaluation)
 
 ## Pretrained dom2vec
-Pretrained dom2vec embeddings can be downloaded from the Research Data of Leibniz University Hannover at [dom2vec_pretrained](https://data.uni-hannover.de/dataset/dom2vec_pretrained).
+Pretrained dom2vec embeddings can be downloaded from the Research Data portal of Leibniz University Hannover at [dom2vec_pretrained](https://data.uni-hannover.de/dataset/dom2vec_pretrained).
 
 ## Research paper
 This repository is the implementation of the research paper (submitted in BMC Bioinformatics, currently under review):
