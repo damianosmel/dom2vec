@@ -107,15 +107,15 @@ For each **organism**: malaria, ecolik12, yeast, human follow the steps:
  
 ## Downstream evaluation
 0. Extract non-redundant domains from proteins in data set
-   * match protein id to the tabular file with domain architectures, result of step 2 of ["building domain architectures"](https://github.com/damianosmel/dom2vec#build-protein-domain-architectures),
-   to get domains for each protein as shown in ["fasta2csv"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L253)
+   * match protein id to the tabular file with domain architectures, result of step 2 of [building domain architectures](https://github.com/damianosmel/dom2vec#build-protein-domain-architectures),
+   to get domains for each protein as shown in [fasta2csv](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L253)
 1. For the remaining proteins, run intreproscan and convert annotation to selected type of domain annotation:
-   * install interproscan as discussed in ["interProScan Wiki"](https://github.com/ebi-pf-team/interproscan/wiki)
+   * install interproscan as discussed in [interProScan Wiki](https://github.com/ebi-pf-team/interproscan/wiki)
    * run interproscan with data set proteins as input, the output is a tsv file
-   * gzip the tsv and parse as in ["parse_prot2in"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/main.py#L127), the output is a tabular file (same columns as of the previous step tabular file)
-   * run again the fasta2csv in ["fasta2csv after interproscan"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L258)
-2. For the rest of protein without identified domains created a default domain per protein as shown in ["fasta2default"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/main.py#L134)
-   * update data set protein domains running fasta2csv for last time, as shown in ["fasta2csv after default domains"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L267)
+   * gzip the tsv and parse as in [parse_prot2in](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/main.py#L127), the output is a tabular file (same columns as of the previous step tabular file)
+   * run again the fasta2csv in [fasta2csv after interproscan](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L258)
+2. For the rest of protein without identified domains created a default domain per protein as shown in [fasta2default](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/main.py#L134)
+   * update data set protein domains running fasta2csv for last time, as shown in [fasta2csv after default domains](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L267)
 
 3. Preprocess data sets for learning:
    * split train and test
@@ -126,10 +126,10 @@ Data and example code to run cross validation and performance experiments for th
 * TargetP
 * Toxin
 * NEW
-are found at the ["downstream evaluation"](https://github.com/damianosmel/dom2vec/tree/master/downstream_evaluation)
+are found at the downstream evaluation [folder](https://github.com/damianosmel/dom2vec/tree/master/downstream_evaluation)
 
 ## Pretrained dom2vec
-Pretrained dom2vec embeddings can be downloaded from the Research Data of Leibniz University Hannover at ["dom2vec_pretrained"](https://data.uni-hannover.de/dataset/dom2vec_pretrained).
+Pretrained dom2vec embeddings can be downloaded from the Research Data of Leibniz University Hannover at [dom2vec_pretrained](https://data.uni-hannover.de/dataset/dom2vec_pretrained).
 
 ## Research paper
 This repository is the implementation of the bioRxiv research paper:
