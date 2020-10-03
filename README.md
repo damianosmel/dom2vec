@@ -120,7 +120,7 @@ For each **organism**: malaria, ecolik12, yeast, human follow the steps:
 3. Preprocess data sets for learning:
    * split train and test
    * create inner cross validation from the training set
-   as shown in ["create data set splits"](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L277)
+   as shown in [create data set splits](https://github.com/damianosmel/dom2vec/blob/7a8de7994220d33577b31f74cf37ea5ed675c85b/code/extrinsic_eval_run.py#L277)
 
 Data and example code to run cross validation and performance experiments for three data sets:
 * TargetP
