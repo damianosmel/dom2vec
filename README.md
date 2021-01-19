@@ -7,7 +7,7 @@ All analysis is decipted in the following image:
 
 ## Summary of approach
 ![Summary of approach](dom2vec_approach.png "Summary of approach")
-Summary of the approach/code divided in four parts, building two forms of domains architecture, training domain embeddings, performing intrinsic and extrinsic evaluation of embeddings.
+Summary of the approach/code divided in four parts, building two forms of domain architectures, training domain embeddings, performing intrinsic and extrinsic evaluation of embeddings.
 
 ## Main dependencies
 Code was executed using a conda environment, of which the full list of dependencies is in conda_env_dependencies.txt.
