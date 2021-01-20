@@ -132,7 +132,7 @@ are found at the downstream evaluation [folder](https://github.com/damianosmel/d
 Pretrained dom2vec embeddings can be downloaded from the Research Data portal of Leibniz University Hannover at [dom2vec_pretrained](https://data.uni-hannover.de/dataset/dom2vec_pretrained).
 
 ## Citation
-This repository is the implementation of the research work *Capturing Protein Domain Structure and Function Using Self-Supervision on Domain Architectures* [link](https://www.mdpi.com/1999-4893/14/1/28).
+This repository is the implementation of the research work: "*Capturing Protein Domain Structure and Function Using Self-Supervision on Domain Architectures*" [link](https://www.mdpi.com/1999-4893/14/1/28).
 
 Cite as:
 ```
