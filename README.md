@@ -136,6 +136,14 @@ This repository is the implementation of the research work: "*Capturing Protein 
 
 Please, cite as:
 ```
-Melidis, D.P.; Nejdl, W. Capturing Protein Domain Structure and Function Using Self-Supervision on Domain Architectures.
-Algorithms 2021, 14, 28. https://doi.org/10.3390/a14010028
+@article{melidis2021capturing,
+  title={Capturing Protein Domain Structure and Function Using Self-Supervision on Domain Architectures},
+  author={Melidis, Damianos P and Nejdl, Wolfgang},
+  journal={Algorithms},
+  volume={14},
+  number={1},
+  pages={28},
+  year={2021},
+  publisher={Multidisciplinary Digital Publishing Institute}
+}
 ```
